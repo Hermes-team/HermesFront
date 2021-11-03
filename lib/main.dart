@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:front/models/storage/storage.dart';
 import 'package:front/views/home_page.dart';
 import 'package:front/views/sign_in.dart';
 import 'package:front/views/sign_up.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  Widget startPage = const SignInPage();
-  if (prefs.containsKey("token")) {
-    startPage = const HomePage();
-  }
+  Widget startPage = await Storage.hasToken() ? const HomePage() : const SignInPage();
   runApp(MyApp(page: startPage));
 }
 
