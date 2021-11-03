@@ -10,7 +10,7 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   List<ChatUsers> chatUsers = [
     ChatUsers(name: "Jane Russel", messageText: "Awesome Setup", imageURL: "images/userImage1.jpeg", time: "Now"),
-    ChatUsers(name: "Glady's Murphy", messageText: "That's Great", imageURL: "images/userImage2.jpeg", time: "Yesterday"),
+    ChatUsers(name: "Glady's Murphy", messageText: "That's Great", imageURL: "imgs/userImage1.jpeg", time: "Yesterday"),
     ChatUsers(name: "Jorge Henry", messageText: "Hey where are you?", imageURL: "images/userImage3.jpeg", time: "31 Mar"),
     ChatUsers(name: "Philip Fox", messageText: "Busy! Call me in 20 mins", imageURL: "images/userImage4.jpeg", time: "28 Mar"),
     ChatUsers(name: "Debra Hawkins", messageText: "Thankyou, It's awesome", imageURL: "images/userImage5.jpeg", time: "23 Mar"),
@@ -35,19 +35,19 @@ class _ChatPageState extends State<ChatPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Hermes",style: TextStyle(fontSize: 25 ,fontWeight: FontWeight.bold, color: Color(0xff709775)), ),
+                    Text("Your Chats",style: TextStyle(fontSize: 25 ,fontWeight: FontWeight.bold, color: Color(0xff709775)), ),
                     Container(
-                      padding: EdgeInsets.only(left: 8,right: 8,top: 2,bottom: 2),
-                      height: 20,
+                      padding: EdgeInsets.only(left: 8,right: 8,top: 1,bottom: 1),
+                      height: 40,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Colors.pink[50],
+                        color: Color(0xff709775),
                       ),
                       child: Row(
                         children: const <Widget>[
-                          Icon(Icons.add,color: Colors.pink,size: 20,),
+                          Icon(Icons.add,color: Color(0xff1b343A),size: 30,),
                           SizedBox(width: 2,),
-                          Text("Add New",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                          //Text("Add New",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
                         ],
                       ),
                     )
