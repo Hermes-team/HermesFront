@@ -35,7 +35,7 @@ class _SignInPageState extends State<SignInPage> {
         Storage.saveTokens(parsed.token!, parsed.selector!);
         Navigator.pushReplacementNamed(context, '/');
       } else {
-        Fluttertoast.showToast(msg: 'Invalid email or password', gravity: ToastGravity.SNACKBAR);
+        Fluttertoast.showToast(msg: parsed.msg!, gravity: ToastGravity.SNACKBAR);
         return;
       }
     } catch (error) {
