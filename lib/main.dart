@@ -4,15 +4,14 @@ import 'package:front/views/sign_in.dart';
 import 'package:front/views/sign_up.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences.getInstance().then((prefs) {
-    Widget startPage = const SignInPage();
-    if (prefs.containsKey("token")) {
-      startPage = const HomePage();
-    }
-    runApp(MyApp(page: startPage));
-  });
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+ Widget startPage = const SignInPage();
+  if (prefs.containsKey("token")) {
+    startPage = const HomePage();
+  }
+  runApp(MyApp(page: startPage));
 }
 
 class MyApp extends StatelessWidget {
