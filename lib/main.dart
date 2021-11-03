@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/views/sign_in.dart';
+import 'package:front/views/sign_up.dart';
 
 void main() {
   runApp(const MyApp());
@@ -47,7 +48,11 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: const SignInForm(),
+      home: const SignInForm(), //TODO: check to home if logged
+      routes: {
+        '/signIn': (BuildContext context) => const SignInForm(),
+        '/signUp': (BuildContext context) => const SignUpForm(),
+      },
     );
   }
 }
