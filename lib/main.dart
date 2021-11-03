@@ -48,10 +48,10 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: const SignInForm(), //TODO: check to home if logged
+      home: const SignInPage(), //TODO: check to home if logged
       routes: {
-        '/signIn': (BuildContext context) => const SignInForm(),
-        '/signUp': (BuildContext context) => const SignUpForm(),
+        '/signIn': (BuildContext context) => const SignInPage(),
+        '/signUp': (BuildContext context) => const SignUpPage(),
       },
     );
   }

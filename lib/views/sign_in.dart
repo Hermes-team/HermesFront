@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/home_page.dart';
 import 'package:front/views/sign_up.dart';
 
 
-class SignInForm extends StatefulWidget {
-  const SignInForm({Key? key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
-  _SignInFormState createState() => _SignInFormState();
+  _SignInPageState createState() => _SignInPageState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class _SignInPageState extends State<SignInPage> {
+  final _formKey = GlobalKey<FormState>();
   //TODO: Request server and check if successful
   void login() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
+    if (!_formKey.currentState!.validate()) return;
+    Navigator.pushReplacementNamed(context, '/');
   }
 
   void goToSignUp() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const SignUpForm()),
+      MaterialPageRoute(builder: (context) => const SignUpPage()),
     );
   }
 
@@ -37,29 +35,48 @@ class _SignInFormState extends State<SignInForm> {
             Text('Hermes', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
             Text('Fast. Reliable. Secure.', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline5),
             const Padding(padding: EdgeInsets.all(20.0)),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Email address',
-                contentPadding: EdgeInsets.all(5.0),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter email';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Email address',
+                      contentPadding: EdgeInsets.all(5.0),
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.all(5.0)),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                      contentPadding: EdgeInsets.all(5.0),
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.all(20.0)),
+                  ElevatedButton(
+                    onPressed: () => login(),
+                    child: const Text('Sign In'),
+                    style: ButtonStyle(
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100.0),
+                            ))
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const Padding(padding: EdgeInsets.all(5.0)),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Password',
-                contentPadding: EdgeInsets.all(5.0),
-              ),
-            ),
-            const Padding(padding: EdgeInsets.all(20.0)),
-            ElevatedButton(
-                onPressed: () => login(),
-                child: const Text('Sign In'),
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100.0),
-                    ))
-                ),
             ),
             Row(
               children: [
