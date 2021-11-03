@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/views/home_page.dart';
 
 
 class SignInForm extends StatefulWidget {
@@ -9,19 +10,12 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  void _printLatestValue() {
-    print('Second text field:');
+  //TODO: Request server and check if successful
+  void login() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
   }
 
   @override
@@ -50,7 +44,7 @@ class _SignInFormState extends State<SignInForm> {
             ),
             const Padding(padding: EdgeInsets.all(20.0)),
             ElevatedButton(
-                onPressed: () => _printLatestValue(),
+                onPressed: () => login(),
                 child: const Text('Sign In'),
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
