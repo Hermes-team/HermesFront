@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/sign_in.dart';
+import 'package:front/screens/home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,7 +44,8 @@ class MyApp extends StatelessWidget {
           overline: TextStyle(fontSize: 14.0, color: Color(0xFFFAFAFA)),
         )
       ),
-      home: const SignInForm(),
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
     );
   }
 }
