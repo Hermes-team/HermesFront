@@ -9,14 +9,14 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   List<ChatUsers> chatUsers = [
-    ChatUsers(name: "Jane Russel", messageText: "Awesome Setup", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635906225~hmac=8f7915e0a13d4ec299388230d254ca06", time: "Now"),
-    ChatUsers(name: "Glady's Murphy", messageText: "That's Great", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635906225~hmac=8f7915e0a13d4ec299388230d254ca06", time: "Yesterday"),
-    ChatUsers(name: "Jorge Henry", messageText: "Hey where are you?", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635906225~hmac=8f7915e0a13d4ec299388230d254ca06", time: "31 Mar"),
-    ChatUsers(name: "Philip Fox", messageText: "Busy! Call me in 20 mins", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635906225~hmac=8f7915e0a13d4ec299388230d254ca06", time: "28 Mar"),
-    ChatUsers(name: "Debra Hawkins", messageText: "Thankyou, It's awesome", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635906225~hmac=8f7915e0a13d4ec299388230d254ca06", time: "23 Mar"),
-    ChatUsers(name: "Jacob Pena", messageText: "will update you in evening", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635906225~hmac=8f7915e0a13d4ec299388230d254ca06", time: "17 Mar"),
-    ChatUsers(name: "Andrey Jones", messageText: "Can you please share the file?", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635906225~hmac=8f7915e0a13d4ec299388230d254ca06", time: "24 Feb"),
-    ChatUsers(name: "John Wick", messageText: "How are you?", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635906225~hmac=8f7915e0a13d4ec299388230d254ca06", time: "18 Feb"),
+    ChatUsers(name: "Jane Russel", messageText: "Awesome Setup", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a", time: "Now"),
+    ChatUsers(name: "Glady's Murphy", messageText: "That's Great", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a", time: "Yesterday"),
+    ChatUsers(name: "Jorge Henry", messageText: "Hey where are you?", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a", time: "31 Mar"),
+    ChatUsers(name: "Philip Fox", messageText: "Busy! Call me in 20 mins", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a", time: "28 Mar"),
+    ChatUsers(name: "Debra Hawkins", messageText: "Thankyou, It's awesome", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a", time: "23 Mar"),
+    ChatUsers(name: "Jacob Pena", messageText: "will update you in evening", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a", time: "17 Mar"),
+    ChatUsers(name: "Andrey Jones", messageText: "Can you please share the file?", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a", time: "24 Feb"),
+    ChatUsers(name: "John Wick", messageText: "How are you?", imageURL: "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a", time: "18 Feb"),
   ];
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/views/home_page.dart';
 import 'package:front/views/sign_in.dart';
 import 'package:front/views/sign_up.dart';
 
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/signIn': (BuildContext context) => const SignInPage(),
         '/signUp': (BuildContext context) => const SignUpPage(),
+        '/home': (BuildContext context) => const HomePage(),
       },
     );
   }

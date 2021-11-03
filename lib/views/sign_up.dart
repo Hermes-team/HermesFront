@@ -14,6 +14,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final controllers = { 'emailCtrl': TextEditingController(), 'nicknameCtrl': TextEditingController(), 'passwordCtrl': TextEditingController() };
   final _formKey = GlobalKey<FormState>();
+  bool _passwordVisible = false;
 
   RegisterModel getFormData() {
     return RegisterModel(email: controllers['emailCtrl']!.text, nickname: controllers['nicknameCtrl']!.text, password: controllers['passwordCtrl']!.text);
@@ -38,6 +39,12 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void goToSignIn() {
     Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    _passwordVisible = false;
+    super.initState();
   }
 
   @override
@@ -95,9 +102,22 @@ class _SignUpPageState extends State<SignUpPage> {
                     }
                     return null;
                   },
-                  decoration: const InputDecoration(
+                  obscureText: !_passwordVisible,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: InputDecoration(
                     labelText: 'Password',
-                    contentPadding: EdgeInsets.all(5.0),
+                    contentPadding: const EdgeInsets.all(5.0),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
+                    ),
                   ),
                 ),
                 const Padding(padding: EdgeInsets.all(20.0)),

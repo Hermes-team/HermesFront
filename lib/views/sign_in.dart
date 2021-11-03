@@ -14,6 +14,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final controllers = { 'emailCtrl': TextEditingController(), 'passwordCtrl': TextEditingController() };
   final _formKey = GlobalKey<FormState>();
+  bool _passwordVisible = false;
 
   LoginModel getFormData() {
     return LoginModel(email: controllers['emailCtrl']!.text, password: controllers['passwordCtrl']!.text);
@@ -30,11 +31,12 @@ class _SignInPageState extends State<SignInPage> {
         SocketException:
         //TODO: display Server Is Down note or something
         default:
-          rethrow;
+          print(error);
+          return;
       }
     }
-
-    Navigator.pushReplacementNamed(context, '/');
+    //TODO: change to '/'
+    Navigator.pushReplacementNamed(context, '/home');
   }
 
   void goToSignUp() {
@@ -42,6 +44,12 @@ class _SignInPageState extends State<SignInPage> {
       context,
       MaterialPageRoute(builder: (context) => const SignUpPage()),
     );
+  }
+
+  @override
+  void initState() {
+    _passwordVisible = false;
+    super.initState();
   }
 
   @override
@@ -67,6 +75,8 @@ class _SignInPageState extends State<SignInPage> {
                       }
                       return null;
                     },
+                    enableSuggestions: true,
+                    autocorrect: true,
                     decoration: const InputDecoration(
                       labelText: 'Email address',
                       contentPadding: EdgeInsets.all(5.0),
@@ -81,9 +91,22 @@ class _SignInPageState extends State<SignInPage> {
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(
+                    obscureText: !_passwordVisible,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    decoration: InputDecoration(
                       labelText: 'Password',
-                      contentPadding: EdgeInsets.all(5.0),
+                      contentPadding: const EdgeInsets.all(5.0),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
                     ),
                   ),
                   const Padding(padding: EdgeInsets.all(20.0)),
