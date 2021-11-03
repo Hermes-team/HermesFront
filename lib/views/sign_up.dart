@@ -30,7 +30,7 @@ class _SignUpPageState extends State<SignUpPage> {
       var res = await AuthService.register(getFormData());
       final parsed = RegisterRes.fromJson(jsonDecode(res));
       if (parsed.success) {
-        Storage.saveTokens(parsed.token!, parsed.selector!);
+        await Storage.saveTokens(parsed.token!, parsed.selector!);
         Navigator.pushReplacementNamed(context, '/');
         return;
       }
