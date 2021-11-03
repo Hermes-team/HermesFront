@@ -9,8 +9,6 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  // final loginCtrl = TextEditingController();
-  // final passwordCtrl = TextEditingController();
 
   @override
   void initState() {
@@ -29,9 +27,6 @@ class _SignInFormState extends State<SignInForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Hermes'),
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: ListView(
@@ -41,22 +36,27 @@ class _SignInFormState extends State<SignInForm> {
             const Text('Fast. Reliable. Secure.', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontFamily: 'ZenKurenaido')),
             const Padding(padding: EdgeInsets.all(20.0)),
             TextFormField(
-              // controller: loginCtrl,
               decoration: const InputDecoration(
                 labelText: 'Email address',
                 contentPadding: EdgeInsets.all(5.0)
               ),
             ),
             TextFormField(
-              // controller: passwordCtrl,
               decoration: const InputDecoration(
                 labelText: 'Password',
                 contentPadding: EdgeInsets.all(5.0)
               ),
             ),
+            const Padding(padding: EdgeInsets.all(20.0)),
             ElevatedButton(
                 onPressed: () => _printLatestValue(),
-                child: const Text('Sign In')
+                child: const Text('Sign In'),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100.0),
+                    ))
+                ),
             ),
             Row(
               children: [
