@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
- Widget startPage = const SignInPage();
+  Widget startPage = const SignInPage();
   if (prefs.containsKey("token")) {
     startPage = const HomePage();
   }
