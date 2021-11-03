@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:front/models/register_model.dart';
 import 'package:front/services/auth_service.dart';
@@ -21,8 +22,18 @@ class _SignUpPageState extends State<SignUpPage> {
   //TODO: Check if success
   Future<void> signUp() async {
     if (!_formKey.currentState!.validate()) return;
-    var res = await AuthService.register(getFormData());
-    print(res);
+    try {
+      var res = await AuthService.register(getFormData());
+      print(res);
+    } catch (error) {
+      switch (error) {
+        SocketException:
+          //TODO: display Server Is Down note or something
+        default:
+          rethrow;
+      }
+    }
+
     Navigator.pushReplacementNamed(context, '/');
   }
 

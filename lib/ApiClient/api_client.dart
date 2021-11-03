@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ApiClient {
-  static const baseURL = 'http://localhost:4000';
+  static const baseURL = 'https://hermessengerr.herokuapp.com';
 
   static Future<http.Response> post<T>(String relURL, T jsonBody) async {
     return http.post(
