@@ -10,4 +10,10 @@ class Storage {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.containsKey("token");
   }
+
+  static Future<void> removeTokens() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("token");
+    prefs.remove("tokenSelector");
+  }
 }
