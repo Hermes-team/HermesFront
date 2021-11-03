@@ -6,6 +6,7 @@ import 'package:front/models/req/login_model.dart';
 import 'package:front/models/res/login_model.dart';
 import 'package:front/services/auth_service.dart';
 import 'package:front/views/sign_up.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class SignInPage extends StatefulWidget {
@@ -31,6 +32,9 @@ class _SignInPageState extends State<SignInPage> {
       var res = await AuthService.login(getFormData());
       final parsed = LoginRes.fromJson(jsonDecode(res));
       if (parsed.success) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString("token", parsed.token!);
+        prefs.setString("tokenSelector", parsed.selector!);
         Navigator.pushReplacementNamed(context, '/');
       } else {
         Fluttertoast.showToast(msg: 'Invalid email or password', gravity: ToastGravity.SNACKBAR);

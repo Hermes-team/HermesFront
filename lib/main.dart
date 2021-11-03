@@ -2,13 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:front/views/home_page.dart';
 import 'package:front/views/sign_in.dart';
 import 'package:front/views/sign_up.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.getInstance().then((prefs) {
+    Widget startPage = const SignInPage();
+    if (prefs.containsKey("token")) {
+      startPage = const HomePage();
+    }
+    runApp(MyApp(page: startPage));
+  });
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  Widget startPage;
+  MyApp({Key? key, Widget? page}) : startPage = page!, super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +58,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: const SignInPage(), //TODO: check to home if logged
+      home: startPage,
       routes: {
         '/signIn': (BuildContext context) => const SignInPage(),
         '/signUp': (BuildContext context) => const SignUpPage(),
