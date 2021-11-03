@@ -9,8 +9,8 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  final loginCtrl = TextEditingController();
-  final passwordCtrl = TextEditingController();
+  // final loginCtrl = TextEditingController();
+  // final passwordCtrl = TextEditingController();
 
   @override
   void initState() {
@@ -19,32 +19,40 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   void dispose() {
-    loginCtrl.dispose();
     super.dispose();
   }
 
   void _printLatestValue() {
-    print('Second text field: ${loginCtrl.text}');
+    print('Second text field:');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Retrieve Text Input'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Hermes'),
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(32.0),
-        child: Column(
+        child: ListView(
           children: [
-            const Image(image: AssetImage('lib/imgs/wings.png')),
-            const Text('Hermes'),
-            TextField(
-              controller: loginCtrl,
-
+            const Image(image: AssetImage('imgs/hermes.png'), height: 200),
+            const Text('Hermes', textAlign: TextAlign.center, style: TextStyle(fontSize: 50, fontFamily: 'ZenKurenaido')),
+            const Text('Fast. Reliable. Secure.', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontFamily: 'ZenKurenaido')),
+            const Padding(padding: EdgeInsets.all(20.0)),
+            TextFormField(
+              // controller: loginCtrl,
+              decoration: const InputDecoration(
+                labelText: 'Email address',
+                contentPadding: EdgeInsets.all(5.0)
+              ),
             ),
-            TextField(
-              controller: passwordCtrl,
+            TextFormField(
+              // controller: passwordCtrl,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+                contentPadding: EdgeInsets.all(5.0)
+              ),
             ),
             ElevatedButton(
                 onPressed: () => _printLatestValue(),
