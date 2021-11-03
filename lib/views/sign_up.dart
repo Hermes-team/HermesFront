@@ -36,8 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
       }
       Fluttertoast.showToast(msg: parsed.msg!, gravity: ToastGravity.SNACKBAR);
     } catch (error) {
-      Fluttertoast.showToast(msg: error.toString(), gravity: ToastGravity.TOP);
-      // Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.TOP);
+      Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.TOP);
     }
   }
 
