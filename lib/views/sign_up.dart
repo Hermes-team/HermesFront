@@ -11,7 +11,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  //TODO: Request server and check if successful
   final controllers = { 'emailCtrl': TextEditingController(), 'nicknameCtrl': TextEditingController(), 'passwordCtrl': TextEditingController() };
   final _formKey = GlobalKey<FormState>();
 
@@ -23,6 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Future<void> signUp() async {
     if (!_formKey.currentState!.validate()) return;
     var res = await AuthService.register(getFormData());
+    print(res);
     Navigator.pushReplacementNamed(context, '/');
   }
 

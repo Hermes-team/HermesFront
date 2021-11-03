@@ -7,12 +7,8 @@ class AuthService {
   static const session = FlutterSecureStorage();
 
   static Future<dynamic> register(RegisterModel req) async {
-    try {
-      var res = await ApiClient.post<RegisterModel>('register', req);
-      return res.body;
-    } catch(error) {
-      return error;
-    }
+    var res = await ApiClient.post<RegisterModel>('register', req);
+    return res.body;
   }
 
   //TODO: save token etc. to session
