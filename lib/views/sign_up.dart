@@ -24,7 +24,6 @@ class _SignUpPageState extends State<SignUpPage> {
     if (!_formKey.currentState!.validate()) return;
     try {
       var res = await AuthService.register(getFormData());
-      print(res);
     } catch (error) {
       switch (error) {
         SocketException:

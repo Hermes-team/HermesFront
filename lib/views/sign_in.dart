@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:front/models/login_model.dart';
+import 'package:front/services/auth_service.dart';
 import 'package:front/views/sign_up.dart';
 
 
@@ -10,10 +12,28 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  final controllers = { 'emailCtrl': TextEditingController(), 'passwordCtrl': TextEditingController() };
   final _formKey = GlobalKey<FormState>();
-  //TODO: Request server and check if successful
-  void login() {
+
+  LoginModel getFormData() {
+    return LoginModel(email: controllers['emailCtrl']!.text, password: controllers['passwordCtrl']!.text);
+  }
+
+  void login() async {
     if (!_formKey.currentState!.validate()) return;
+
+    try {
+      var res = await AuthService.login(getFormData());
+      print(res);
+    } catch (error) {
+      switch (error) {
+        SocketException:
+        //TODO: display Server Is Down note or something
+        default:
+          rethrow;
+      }
+    }
+
     Navigator.pushReplacementNamed(context, '/');
   }
 
@@ -40,6 +60,7 @@ class _SignInPageState extends State<SignInPage> {
               child: Column(
                 children: [
                   TextFormField(
+                    controller: controllers['emailCtrl'],
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter email';
@@ -53,6 +74,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   const Padding(padding: EdgeInsets.all(5.0)),
                   TextFormField(
+                    controller: controllers['passwordCtrl'],
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter password';
