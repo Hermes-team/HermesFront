@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:front/models/storage/storage.dart';
 import 'package:front/views/home_page.dart';
 import 'package:front/views/sign_in.dart';
 import 'package:front/views/sign_up.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Widget startPage = await Storage.hasToken() ? const HomePage() : const SignInPage();
+  runApp(MyApp(page: startPage));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  Widget startPage;
+  MyApp({Key? key, Widget? page}) : startPage = page!, super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: const SignInPage(), //TODO: check to home if logged
+      home: startPage,
       routes: {
         '/signIn': (BuildContext context) => const SignInPage(),
         '/signUp': (BuildContext context) => const SignUpPage(),

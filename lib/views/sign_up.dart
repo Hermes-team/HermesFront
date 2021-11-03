@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:front/models/req/register_model.dart';
+import 'package:front/models/res/register_model.dart';
+import 'package:front/models/storage/storage.dart';
 import 'package:front/services/auth_service.dart';
 
 
@@ -24,8 +28,16 @@ class _SignUpPageState extends State<SignUpPage> {
     if (!_formKey.currentState!.validate()) return;
     try {
       var res = await AuthService.register(getFormData());
+      final parsed = RegisterRes.fromJson(jsonDecode(res));
+      if (parsed.success) {
+        await Storage.saveTokens(parsed.token!, parsed.selector!);
+        Navigator.pushReplacementNamed(context, '/home');
+        return;
+      }
+      Fluttertoast.showToast(msg: parsed.msg!, gravity: ToastGravity.SNACKBAR);
     } catch (error) {
-      Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.TOP);
+      Fluttertoast.showToast(msg: error.toString(), gravity: ToastGravity.TOP);
+      // Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.TOP);
     }
   }
 
