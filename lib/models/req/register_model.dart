@@ -1,15 +1,15 @@
-class RegisterModel{
+class RegisterReq{
   String email;
   String nickname;
   String password;
 
-  RegisterModel({
+  RegisterReq({
     required this.email,
     required this.nickname,
     required this.password
   });
 
-  RegisterModel.fromJson(Map<String, dynamic> json):
+  RegisterReq.fromJson(Map<String, dynamic> json):
         email = json['email'],
         nickname = json['nickname'],
         password = json['password'];

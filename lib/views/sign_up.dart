@@ -1,6 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:front/models/register_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:front/models/req/register_model.dart';
 import 'package:front/services/auth_service.dart';
 
 
@@ -12,29 +12,21 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final controllers = { 'emailCtrl': TextEditingController(), 'nicknameCtrl': TextEditingController(), 'passwordCtrl': TextEditingController() };
+  final _controllers = { 'emailCtrl': TextEditingController(), 'nicknameCtrl': TextEditingController(), 'passwordCtrl': TextEditingController() };
   final _formKey = GlobalKey<FormState>();
   bool _passwordVisible = false;
 
-  RegisterModel getFormData() {
-    return RegisterModel(email: controllers['emailCtrl']!.text, nickname: controllers['nicknameCtrl']!.text, password: controllers['passwordCtrl']!.text);
+  RegisterReq getFormData() {
+    return RegisterReq(email: _controllers['emailCtrl']!.text, nickname: _controllers['nicknameCtrl']!.text, password: _controllers['passwordCtrl']!.text);
   }
 
-  //TODO: Check if success
   Future<void> signUp() async {
     if (!_formKey.currentState!.validate()) return;
     try {
       var res = await AuthService.register(getFormData());
     } catch (error) {
-      switch (error) {
-        SocketException:
-          //TODO: display Server Is Down note or something
-        default:
-          rethrow;
-      }
+      Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.TOP);
     }
-
-    Navigator.pushReplacementNamed(context, '/');
   }
 
   void goToSignIn() {
@@ -49,7 +41,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void dispose() {
-    controllers.forEach((_, value) { value.dispose(); });
+    _controllers.forEach((_, value) { value.dispose(); });
     super.dispose();
   }
 
@@ -67,7 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  controller: controllers['emailCtrl'],
+                  controller: _controllers['emailCtrl'],
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter email';
@@ -81,7 +73,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 const Padding(padding: EdgeInsets.all(5.0)),
                 TextFormField(
-                  controller: controllers['nicknameCtrl'],
+                  controller: _controllers['nicknameCtrl'],
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter nickname';
@@ -95,7 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 const Padding(padding: EdgeInsets.all(5.0)),
                 TextFormField(
-                  controller: controllers['passwordCtrl'],
+                  controller: _controllers['passwordCtrl'],
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter password';

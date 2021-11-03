@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:front/models/login_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:front/models/req/login_model.dart';
+import 'package:front/models/res/login_model.dart';
 import 'package:front/services/auth_service.dart';
 import 'package:front/views/sign_up.dart';
 
@@ -12,12 +16,12 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  final controllers = { 'emailCtrl': TextEditingController(), 'passwordCtrl': TextEditingController() };
+  final _controllers = { 'emailCtrl': TextEditingController(), 'passwordCtrl': TextEditingController() };
   final _formKey = GlobalKey<FormState>();
   bool _passwordVisible = false;
 
-  LoginModel getFormData() {
-    return LoginModel(email: controllers['emailCtrl']!.text, password: controllers['passwordCtrl']!.text);
+  LoginReq getFormData() {
+    return LoginReq(email: _controllers['emailCtrl']!.text, password: _controllers['passwordCtrl']!.text);
   }
 
   void login() async {
@@ -25,15 +29,16 @@ class _SignInPageState extends State<SignInPage> {
 
     try {
       var res = await AuthService.login(getFormData());
-      print(res);
-    } catch (error) {
-      switch (error) {
-        SocketException:
-        //TODO: display Server Is Down note or something
-        default:
-          print(error);
-          return;
+      final parsed = LoginRes.fromJson(jsonDecode(res));
+      if (parsed.success) {
+        Navigator.pushReplacementNamed(context, '/');
+      } else {
+        Fluttertoast.showToast(msg: 'Invalid email or password', gravity: ToastGravity.TOP);
+        return;
       }
+    } catch (error) {
+      Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.TOP);
+      return;
     }
     //TODO: change to '/'
     Navigator.pushReplacementNamed(context, '/home');
@@ -68,7 +73,7 @@ class _SignInPageState extends State<SignInPage> {
               child: Column(
                 children: [
                   TextFormField(
-                    controller: controllers['emailCtrl'],
+                    controller: _controllers['emailCtrl'],
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter email';
@@ -84,7 +89,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   const Padding(padding: EdgeInsets.all(5.0)),
                   TextFormField(
-                    controller: controllers['passwordCtrl'],
+                    controller: _controllers['passwordCtrl'],
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter password';
