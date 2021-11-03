@@ -33,11 +33,11 @@ class _SignInPageState extends State<SignInPage> {
       if (parsed.success) {
         Navigator.pushReplacementNamed(context, '/');
       } else {
-        Fluttertoast.showToast(msg: 'Invalid email or password', gravity: ToastGravity.TOP);
+        Fluttertoast.showToast(msg: 'Invalid email or password', gravity: ToastGravity.SNACKBAR);
         return;
       }
     } catch (error) {
-      Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.TOP);
+      Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.SNACKBAR);
       return;
     }
     //TODO: change to '/'
