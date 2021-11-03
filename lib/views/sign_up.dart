@@ -31,12 +31,13 @@ class _SignUpPageState extends State<SignUpPage> {
       final parsed = RegisterRes.fromJson(jsonDecode(res));
       if (parsed.success) {
         await Storage.saveTokens(parsed.token!, parsed.selector!);
-        Navigator.pushReplacementNamed(context, '/');
+        Navigator.pushReplacementNamed(context, '/home');
         return;
       }
       Fluttertoast.showToast(msg: parsed.msg!, gravity: ToastGravity.SNACKBAR);
     } catch (error) {
-      Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.TOP);
+      Fluttertoast.showToast(msg: error.toString(), gravity: ToastGravity.TOP);
+      // Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.TOP);
     }
   }
 

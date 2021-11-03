@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_users_model.dart';
+import 'package:front/models/storage/storage.dart';
 import 'package:front/widgets/conversation_list.dart';
 
 class ChatPage extends StatefulWidget {
@@ -44,9 +45,20 @@ class _ChatPageState extends State<ChatPage> {
                         color: const Color(0xff709775),
                       ),
                       child: Row(
-                        children: const <Widget>[
-                          Icon(Icons.add,color: Color(0xff1b343A),size: 30,),
-                          SizedBox(width: 2,),
+                        children: <Widget>[
+                          const Icon(Icons.add,color: Color(0xff1b343A),size: 30,),
+                          const SizedBox(width: 10),
+                          IconButton(
+                            icon: const Icon(
+                            Icons.logout_sharp,
+                              color: Color(0xff1b343A),
+                              size: 30,
+                            ),
+                            onPressed: () {
+                              Storage.removeTokens();
+                              Navigator.pushReplacementNamed(context, '/signIn');
+                            },
+                          )
                           //Text("Add New",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
                         ],
                       ),

@@ -33,7 +33,7 @@ class _SignInPageState extends State<SignInPage> {
       final parsed = LoginRes.fromJson(jsonDecode(res));
       if (parsed.success) {
         await Storage.saveTokens(parsed.token!, parsed.selector!);
-        Navigator.pushReplacementNamed(context, '/');
+        Navigator.pushReplacementNamed(context, '/home');
       } else {
         Fluttertoast.showToast(msg: parsed.msg!, gravity: ToastGravity.SNACKBAR);
         return;
