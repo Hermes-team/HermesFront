@@ -32,19 +32,20 @@ class _SignInFormState extends State<SignInForm> {
         child: ListView(
           children: [
             const Image(image: AssetImage('imgs/hermes.png'), height: 200),
-            const Text('Hermes', textAlign: TextAlign.center, style: TextStyle(fontSize: 50, fontFamily: 'ZenKurenaido')),
-            const Text('Fast. Reliable. Secure.', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontFamily: 'ZenKurenaido')),
+            Text('Hermes', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
+            Text('Fast. Reliable. Secure.', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline5),
             const Padding(padding: EdgeInsets.all(20.0)),
             TextFormField(
               decoration: const InputDecoration(
                 labelText: 'Email address',
-                contentPadding: EdgeInsets.all(5.0)
+                contentPadding: EdgeInsets.all(5.0),
               ),
             ),
+            const Padding(padding: EdgeInsets.all(7.0)),
             TextFormField(
               decoration: const InputDecoration(
                 labelText: 'Password',
-                contentPadding: EdgeInsets.all(5.0)
+                contentPadding: EdgeInsets.all(5.0),
               ),
             ),
             const Padding(padding: EdgeInsets.all(20.0)),
@@ -62,9 +63,6 @@ class _SignInFormState extends State<SignInForm> {
               children: [
                 const Text('Or'),
                 TextButton(
-                  style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                  ),
                   onPressed: () { },
                   child: const Text('create an account'),
                 )
