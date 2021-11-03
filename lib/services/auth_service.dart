@@ -12,7 +12,6 @@ class AuthService {
     }
   }
 
-  //TODO: save token etc. to session
   static Future<dynamic> login(LoginReq req) async {
     try {
       var res = await ApiClient.post<LoginReq>('login', req);

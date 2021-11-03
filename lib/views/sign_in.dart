@@ -42,7 +42,6 @@ class _SignInPageState extends State<SignInPage> {
       Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.SNACKBAR);
       return;
     }
-    //TODO: change to '/'
     Navigator.pushReplacementNamed(context, '/home');
   }
 

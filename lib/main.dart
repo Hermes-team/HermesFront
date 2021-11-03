@@ -11,7 +11,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  Widget startPage;
+  final Widget startPage;
   MyApp({Key? key, Widget? page}) : startPage = page!, super(key: key);
 
   @override
