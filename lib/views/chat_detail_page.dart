@@ -100,7 +100,14 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                       : Alignment.topRight),
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16),
+                        bottomLeft: Radius.circular(
+                            messages[index].messageType == "receiver" ? 0 : 12),
+                        bottomRight: Radius.circular(
+                            messages[index].messageType == "receiver" ? 12 : 0),
+                      ),
                       color: (messages[index].messageType == "receiver"
                           ? Color(0xff2A454e)
                           : Color(0xFF294a2d)),
