@@ -57,39 +57,102 @@ class _ChatPageState extends State<ChatPage> {
         imageURL:
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
         time: "18 Feb"),
+    ChatUsers(
+        name: "Jacob Pena",
+        messageText: "will update you in evening",
+        imageURL:
+            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+        time: "17 Mar"),
+    ChatUsers(
+        name: "Andrey Jones",
+        messageText: "Can you please share the file?",
+        imageURL:
+            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+        time: "24 Feb"),
+    ChatUsers(
+        name: "John Wick",
+        messageText: "How are you?",
+        imageURL:
+            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+        time: "18 Feb"),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF223239),
+      appBar: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        backgroundColor: const Color(0xff213339),
+        title: Center(
+          child: Container(
+            padding: const EdgeInsets.only(right: 5),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Search...",
+                      hintStyle: const TextStyle(color: Color(0xff8D8D8D)),
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: Color(0xff000000),
+                        size: 20,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white12,
+                      contentPadding: const EdgeInsets.all(2),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                              const BorderSide(color: Color(0xff1b343A))),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    //Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.settings,
+                    color: Color(0xff8D8D8D),
+                  ),
+                ),
+                // const Spacer(
+                // ),
+              ],
+            ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 15, left: 16, right: 70),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Search...",
-                    hintStyle: const TextStyle(color: Color(0xff8D8D8D)),
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      color: Color(0xff000000),
-                      size: 20,
-                    ),
-                    filled: true,
-                    //fillColor: const Color(0xff1b343A),
-                    contentPadding: const EdgeInsets.all(8),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Color(0xff1b343A))),
-                  ),
-                ),
-              ),
-            ),
+            // SafeArea(
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(top: 15, left: 16, right: 70),
+            //     child: TextField(
+            //       decoration: InputDecoration(
+            //         hintText: "Search...",
+            //         hintStyle: const TextStyle(color: Color(0xff8D8D8D)),
+            //         prefixIcon: const Icon(
+            //           Icons.search,
+            //           color: Color(0xff000000),
+            //           size: 20,
+            //         ),
+            //         filled: true,
+            //         //fillColor: const Color(0xff1b343A),
+            //         contentPadding: const EdgeInsets.all(8),
+            //         enabledBorder: OutlineInputBorder(
+            //             borderRadius: BorderRadius.circular(20),
+            //             borderSide: const BorderSide(color: Color(0xff1b343A))),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(top: 0, left: 10, right: 10),
