@@ -29,7 +29,8 @@ class _ConversationListState extends State<ConversationList> {
         }));
       },
       child: Container(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+        padding:
+            const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
         child: Row(
           children: <Widget>[
             Expanded(
