@@ -1,22 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_message_model.dart';
+import 'package:front/models/req/message_model.dart';
+import 'package:front/models/res/message_model.dart';
+import 'package:front/services/globals.dart';
 
 class ChatDetailPage extends StatefulWidget {
+  const ChatDetailPage({Key? key}) : super(key: key);
+
   @override
   _ChatDetailPageState createState() => _ChatDetailPageState();
 }
 
 class _ChatDetailPageState extends State<ChatDetailPage> {
-  List<ChatMessage> messages = [
-    ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
-    ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
-    ChatMessage(
-        messageContent: "Hey Kriss, I am doing fine dude. wbu?",
-        messageType: "sender"),
-    ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-  ];
+  final TextEditingController _msgController = TextEditingController();
+  final List<ChatMessage> _messages = [];
+  late var msgListener;
+
+  addMsgFromServer(data) {
+    var messageData = MessageRes.fromJson(data);
+    var chatMsg = ChatMessage(messageContent: messageData.message!, messageType: "receiver");
+    _messages.add(chatMsg);
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    msgListener = addMsgFromServer;
+    socket!.on("message", (data) => addMsgFromServer(data));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    socket!.off("message", msgListener);
+    super.dispose();
+  }
+
+  sendMsg() {
+    var msgData = MessageReq(msg: _msgController.text);
+    var chatMsg = ChatMessage(messageContent: msgData.msg, messageType: "sender");
+    _messages.add(chatMsg);
+    socket?.emit('message', msgData);
+    _msgController.clear();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,36 +113,36 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
       body: Stack(
         children: <Widget>[
           ListView.builder(
-            itemCount: messages.length,
+            itemCount: _messages.length,
             shrinkWrap: true,
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            physics: NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return Container(
                 padding:
-                    EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
+                    const EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
                 child: Align(
-                  alignment: (messages[index].messageType == "receiver"
+                  alignment: (_messages[index].messageType == "receiver"
                       ? Alignment.topLeft
                       : Alignment.topRight),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16),
-                        topRight: Radius.circular(16),
+                        topLeft: const Radius.circular(16),
+                        topRight: const Radius.circular(16),
                         bottomLeft: Radius.circular(
-                            messages[index].messageType == "receiver" ? 0 : 12),
+                            _messages[index].messageType == "receiver" ? 0 : 12),
                         bottomRight: Radius.circular(
-                            messages[index].messageType == "receiver" ? 12 : 0),
+                            _messages[index].messageType == "receiver" ? 12 : 0),
                       ),
-                      color: (messages[index].messageType == "receiver"
-                          ? Color(0xff2A454e)
-                          : Color(0xFF294a2d)),
+                      color: (_messages[index].messageType == "receiver"
+                          ? const Color(0xff2A454e)
+                          : const Color(0xFF294a2d)),
                     ),
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: Text(
-                      messages[index].messageContent,
-                      style: TextStyle(fontSize: 15, color: Color(0xffc9c9c9)),
+                      _messages[index].messageContent,
+                      style: const TextStyle(fontSize: 15, color: Color(0xffc9c9c9)),
                     ),
                   ),
                 ),
@@ -147,9 +174,10 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   const SizedBox(
                     width: 15,
                   ),
-                  const Expanded(
+                  Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
+                      controller: _msgController,
+                      decoration: const InputDecoration(
                           hintText: "Write message...",
                           hintStyle: TextStyle(color: Color(0xFFc9c9c9)),
                           border: InputBorder.none),
@@ -159,7 +187,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     width: 15,
                   ),
                   FloatingActionButton(
-                    onPressed: () {},
+                    onPressed: () => sendMsg(),
                     child: const Icon(
                       Icons.send,
                       color: Color(0xff213339),
