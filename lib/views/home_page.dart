@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     Storage.getTokens()
         .then((tokens) {
           socket?.emit("authenticate", tokens);
-          Fluttertoast.showToast(msg: "tokens: $tokens");
+          Fluttertoast.showToast(msg: "tokens: ${tokens.selector}", toastLength: Toast.LENGTH_LONG);
           })
         .then((value) => socket?.on("message", (data) => {
           //TODO: Add notification
