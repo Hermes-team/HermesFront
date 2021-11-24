@@ -1,7 +1,7 @@
 class ChatMessage {
   String messageContent;
   String messageType;
-  String? uuid;
+  String uuid;
 
-  ChatMessage({required this.messageContent, required this.messageType, this.uuid});
+  ChatMessage({required this.messageContent, required this.messageType, required this.uuid});
 }

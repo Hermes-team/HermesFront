@@ -2,9 +2,8 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_message_model.dart';
-import 'package:front/models/req/message_model.dart';
-import 'package:front/models/res/message_model.dart';
-import 'package:front/models/storage/storage.dart';
+import 'package:front/models/req/message_req.dart';
+import 'package:front/models/res/message_res.dart';
 import 'package:front/services/globals.dart';
 
 class ChatDetailPage extends StatefulWidget {
@@ -23,10 +22,10 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     var messagePayload = MessageRes.fromJson(data);
     print("userid " + messagePayload.userID! + "user id " + userUniqid!);
     if (messagePayload.userID == userUniqid) {
-      _messages.firstWhere((element) => element.messageContent == messagePayload.message && element.uuid == null).uuid = messagePayload.uuid;
+      _messages.firstWhere((element) => element.messageContent == messagePayload.message && element.uuid == "").uuid = messagePayload.uuid!;
     } else {
       var chatMsg = ChatMessage(
-          messageContent: messagePayload.message!, messageType: "receiver");
+          messageContent: messagePayload.message!, messageType: "receiver", uuid: "");
       _messages.add(chatMsg);
     }
     setState(() {});
@@ -47,7 +46,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 
   sendMsg() {
     var msgData = MessageReq(msg: _msgController.text);
-    var chatMsg = ChatMessage(messageContent: msgData.msg, messageType: "sender");
+    var chatMsg = ChatMessage(messageContent: msgData.msg, messageType: "sender", uuid: "");
     _messages.add(chatMsg);
     socket?.emit('message', msgData);
     _msgController.clear();

@@ -1,81 +1,100 @@
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_users_model.dart';
+import 'package:front/models/res/server_res.dart';
 import 'package:front/widgets/conversation_list.dart';
+import 'package:front/services/globals.dart';
 
 class ChatPage extends StatefulWidget {
+  const ChatPage({Key? key}) : super(key: key);
+
   @override
   _ChatPageState createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
   List<ChatUsers> chatUsers = [
-    ChatUsers(
-        name: "Jane Russel",
-        messageText: "Awesome Setup",
-        imageURL:
-            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
-        time: "Now"),
-    ChatUsers(
-        name: "Glady's Murphy",
-        messageText: "That's Great",
-        imageURL:
-            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
-        time: "Yesterday"),
-    ChatUsers(
-        name: "Jorge Henry",
-        messageText: "Hey where are you?",
-        imageURL:
-            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
-        time: "31 Mar"),
-    ChatUsers(
-        name: "Philip Fox",
-        messageText: "Busy! Call me in 20 mins",
-        imageURL:
-            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
-        time: "28 Mar"),
-    ChatUsers(
-        name: "Debra Hawkins",
-        messageText: "Thankyou, It's awesome",
-        imageURL:
-            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
-        time: "23 Mar"),
-    ChatUsers(
-        name: "Jacob Pena",
-        messageText: "will update you in evening",
-        imageURL:
-            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
-        time: "17 Mar"),
-    ChatUsers(
-        name: "Andrey Jones",
-        messageText: "Can you please share the file?",
-        imageURL:
-            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
-        time: "24 Feb"),
-    ChatUsers(
-        name: "John Wick",
-        messageText: "How are you?",
-        imageURL:
-            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
-        time: "18 Feb"),
-    ChatUsers(
-        name: "Jacob Pena",
-        messageText: "will update you in evening",
-        imageURL:
-            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
-        time: "17 Mar"),
-    ChatUsers(
-        name: "Andrey Jones",
-        messageText: "Can you please share the file?",
-        imageURL:
-            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
-        time: "24 Feb"),
-    ChatUsers(
-        name: "John Wick",
-        messageText: "How are you?",
-        imageURL:
-            "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
-        time: "18 Feb"),
+    // ChatUsers(
+    //     name: "Jane Russel",
+    //     messageText: "Awesome Setup",
+    //     imageURL:
+    //         "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+    //     time: "Now"),
+    // ChatUsers(
+    //     name: "Glady's Murphy",
+    //     messageText: "That's Great",
+    //     imageURL:
+    //         "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+    //     time: "Yesterday"),
+    // ChatUsers(
+    //     name: "Jorge Henry",
+    //     messageText: "Hey where are you?",
+    //     imageURL:
+    //         "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+    //     time: "31 Mar"),
+    // ChatUsers(
+    //     name: "Philip Fox",
+    //     messageText: "Busy! Call me in 20 mins",
+    //     imageURL:
+    //         "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+    //     time: "28 Mar"),
+    // ChatUsers(
+    //     name: "Debra Hawkins",
+    //     messageText: "Thankyou, It's awesome",
+    //     imageURL:
+    //         "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+    //     time: "23 Mar"),
+    // ChatUsers(
+    //     name: "Jacob Pena",
+    //     messageText: "will update you in evening",
+    //     imageURL:
+    //         "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+    //     time: "17 Mar"),
+    // ChatUsers(
+    //     name: "Andrey Jones",
+    //     messageText: "Can you please share the file?",
+    //     imageURL:
+    //         "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+    //     time: "24 Feb"),
+    // ChatUsers(
+    //     name: "John Wick",
+    //     messageText: "How are you?",
+    //     imageURL:
+    //         "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+    //     time: "18 Feb"),
+    // ChatUsers(
+    //     name: "Jacob Pena",
+    //     messageText: "will update you in evening",
+    //     imageURL:
+    //         "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+    //     time: "17 Mar"),
+    // ChatUsers(
+    //     name: "Andrey Jones",
+    //     messageText: "Can you please share the file?",
+    //     imageURL:
+    //         "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+    //     time: "24 Feb"),
+    // ChatUsers(
+    //     name: "John Wick",
+    //     messageText: "How are you?",
+    //     imageURL:
+    //         "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
+    //     time: "18 Feb"),
   ];
+  
+  @override
+  void initState() {
+    socket?.on('servers', (servers) {
+      var serverList = (servers as ServerRes).servers;
+      if (serverList == null) return;
+
+      for (var server in serverList) {
+        chatUsers.add(ChatUsers(name: server.name!, messageText: server.lastMessage!, imageURL: "", time: ""));
+      }
+      setState(() {});
+    });
+    socket?.emit('get servers');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

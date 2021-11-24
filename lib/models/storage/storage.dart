@@ -1,5 +1,5 @@
-import 'package:front/models/req/socket_auth.dart';
-import 'package:front/models/res/login_model.dart';
+import 'package:front/models/req/socket_auth_req.dart';
+import 'package:front/models/res/login_res.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Storage {

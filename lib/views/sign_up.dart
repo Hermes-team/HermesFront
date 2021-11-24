@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:front/models/req/register_model.dart';
-import 'package:front/models/res/register_model.dart';
+import 'package:front/models/req/register_req.dart';
+import 'package:front/models/res/register_res.dart';
 import 'package:front/models/storage/storage.dart';
 import 'package:front/services/auth_service.dart';
 

@@ -20,14 +20,13 @@ class _HomePageState extends State<HomePage> {
     socket?.on('auth denied', (reason) => Navigator.pushReplacementNamed(context, '/signIn'));
     Storage.getTokens().then((tokens) => socket?.emit("authenticate", tokens));
     Storage.getUniqid().then((value) => userUniqid = value);
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xff20464f),
+    return const Scaffold(
+      backgroundColor: Color(0xff20464f),
       body: ChatPage(),
     );
   }
