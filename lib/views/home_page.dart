@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:front/models/storage/storage.dart';
 import 'package:front/services/globals.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
@@ -18,14 +17,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     socket = io.io('https://hermessengerr.herokuapp.com');
-    Storage.getTokens()
-        .then((tokens) {
-          socket?.emit("authenticate", tokens);
-          Fluttertoast.showToast(msg: "tokens: ${tokens.selector}", toastLength: Toast.LENGTH_LONG);
-          })
-        .then((value) => socket?.on("message", (data) => {
-          //TODO: Add notification
-    }));
+    socket?.on('auth denied', (reason) => Navigator.pushReplacementNamed(context, '/signIn'));
+    Storage.getTokens().then((tokens) => socket?.emit("authenticate", tokens));
+    Storage.getUniqid().then((value) => userUniqid = value);
+
     super.initState();
   }
 

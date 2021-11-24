@@ -1,7 +1,10 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_message_model.dart';
 import 'package:front/models/req/message_model.dart';
 import 'package:front/models/res/message_model.dart';
+import 'package:front/models/storage/storage.dart';
 import 'package:front/services/globals.dart';
 
 class ChatDetailPage extends StatefulWidget {
@@ -13,13 +16,19 @@ class ChatDetailPage extends StatefulWidget {
 
 class _ChatDetailPageState extends State<ChatDetailPage> {
   final TextEditingController _msgController = TextEditingController();
-  final List<ChatMessage> _messages = [];
+  final LinkedHashSet<ChatMessage> _messages = LinkedHashSet<ChatMessage>();
   late var msgListener;
 
   addMsgFromServer(data) {
-    var messageData = MessageRes.fromJson(data);
-    var chatMsg = ChatMessage(messageContent: messageData.message!, messageType: "receiver");
-    _messages.add(chatMsg);
+    var messagePayload = MessageRes.fromJson(data);
+    print("userid " + messagePayload.userID! + "user id " + userUniqid!);
+    if (messagePayload.userID == userUniqid) {
+      _messages.firstWhere((element) => element.messageContent == messagePayload.message && element.uuid == null).uuid = messagePayload.uuid;
+    } else {
+      var chatMsg = ChatMessage(
+          messageContent: messagePayload.message!, messageType: "receiver");
+      _messages.add(chatMsg);
+    }
     setState(() {});
   }
 
@@ -48,11 +57,11 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF223239),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xff213339),
+        backgroundColor: Theme.of(context).colorScheme.surface,
         flexibleSpace: SafeArea(
           child: Container(
             padding: const EdgeInsets.only(right: 16),
@@ -62,9 +71,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_back,
-                    color: Color(0xff8D8D8D),
+                    color: Theme.of(context).colorScheme.secondaryVariant,
                   ),
                 ),
                 const SizedBox(
@@ -122,7 +131,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 padding:
                     const EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
                 child: Align(
-                  alignment: (_messages[index].messageType == "receiver"
+                  alignment: (_messages.elementAt(index).messageType == "receiver"
                       ? Alignment.topLeft
                       : Alignment.topRight),
                   child: Container(
@@ -131,17 +140,17 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         topLeft: const Radius.circular(16),
                         topRight: const Radius.circular(16),
                         bottomLeft: Radius.circular(
-                            _messages[index].messageType == "receiver" ? 0 : 12),
+                            _messages.elementAt(index).messageType == "receiver" ? 0 : 12),
                         bottomRight: Radius.circular(
-                            _messages[index].messageType == "receiver" ? 12 : 0),
+                            _messages.elementAt(index).messageType == "receiver" ? 12 : 0),
                       ),
-                      color: (_messages[index].messageType == "receiver"
+                      color: (_messages.elementAt(index).messageType == "receiver"
                           ? const Color(0xff2A454e)
-                          : const Color(0xFF294a2d)),
+                          : _messages.elementAt(index).uuid == null ? const Color(0xFF294a2d) : const Color(0xFFFFFFFF)),
                     ),
                     padding: const EdgeInsets.all(16),
                     child: Text(
-                      _messages[index].messageContent,
+                      _messages.elementAt(index).messageContent,
                       style: const TextStyle(fontSize: 15, color: Color(0xffc9c9c9)),
                     ),
                   ),
