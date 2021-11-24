@@ -14,7 +14,7 @@ class Storage {
     prefs.setString("token", r.token!);
     prefs.setString("tokenSelector", r.selector!);
     prefs.setString("nickname", r.nickname!);
-    prefs.setString("tag", r.tag!);
+    prefs.setInt("tag", r.tag!);
     prefs.setString("uniqid", r.uniqid!);
   }
 

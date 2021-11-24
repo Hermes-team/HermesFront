@@ -39,7 +39,7 @@ class _SignInPageState extends State<SignInPage> {
         return;
       }
     } catch (error) {
-      Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.SNACKBAR);
+      Fluttertoast.showToast(msg: 'Server is down. Try again later.' + error.toString(), gravity: ToastGravity.SNACKBAR);
       return;
     }
   }

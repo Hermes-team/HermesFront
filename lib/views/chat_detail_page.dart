@@ -144,7 +144,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                       ),
                       color: (_messages.elementAt(index).messageType == "receiver"
                           ? const Color(0xff2A454e)
-                          : _messages.elementAt(index).uuid == null ? const Color(0xFF294a2d) : const Color(0xFFFFFFFF)),
+                          : _messages.elementAt(index).uuid == "" ? const Color(
+                          0x40294a2d) : const Color(0xFF294a2d)),
                     ),
                     padding: const EdgeInsets.all(16),
                     child: Text(

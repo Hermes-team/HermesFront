@@ -5,7 +5,7 @@ class LoginRes{
   String? selector;
   String? uniqid;
   String? nickname;
-  String? tag;
+  int? tag;
 
   LoginRes({
     required this.success,
