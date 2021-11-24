@@ -20,7 +20,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 
   addMsgFromServer(data) {
     var messagePayload = MessageRes.fromJson(data);
-    print("userid " + messagePayload.userID! + "user id " + userUniqid!);
     if (messagePayload.userID == userUniqid) {
       _messages.firstWhere((element) => element.messageContent == messagePayload.message && element.uuid == "").uuid = messagePayload.uuid!;
     } else {
