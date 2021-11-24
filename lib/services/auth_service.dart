@@ -1,4 +1,4 @@
-import 'package:front/ApiClient/api_client.dart';
+import 'package:front/api_client//api_client.dart';
 import 'package:front/models/req/login_req.dart';
 import 'package:front/models/req/register_req.dart';
 

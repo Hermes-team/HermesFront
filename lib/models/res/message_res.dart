@@ -2,7 +2,7 @@ class MessageRes {
   String? message;
   String? channel;
   String? server;
-  String? from;
+  String? user;
   int? time;
   String? timezone;
   String? userID;
@@ -11,7 +11,7 @@ class MessageRes {
   MessageRes({
     this.message,
     this.channel,
-    this.from,
+    this.user,
     this.server,
     this.time,
     this.timezone,
@@ -23,7 +23,7 @@ class MessageRes {
     message = json['message'],
     channel = json['channel'],
     server = json['server'],
-    from = json['from'],
+    user = json['user'],
     time = json['time'],
     timezone = json['timezone'],
     userID = json['userID'],

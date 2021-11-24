@@ -16,9 +16,7 @@ class _ChatPageState extends State<ChatPage> {
   
   @override
   void initState() {
-    print("test" + (socket != null).toString());
     socket?.on('servers', (servers) {
-      print(servers.toString());
       if (servers == null) return;
 
       for (var server in servers) {

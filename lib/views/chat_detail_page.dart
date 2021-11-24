@@ -2,7 +2,9 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_message_model.dart';
+import 'package:front/models/req/channel_req.dart';
 import 'package:front/models/req/message_req.dart';
+import 'package:front/models/res/bulk_message_res.dart';
 import 'package:front/models/res/message_res.dart';
 import 'package:front/services/globals.dart';
 
@@ -18,8 +20,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   final LinkedHashSet<ChatMessage> _messages = LinkedHashSet<ChatMessage>();
   late var msgListener;
 
-  addMsgFromServer(data) {
-    var messagePayload = MessageRes.fromJson(data);
+  addMsgFromServer(MessageRes messagePayload) {
     if (messagePayload.userID == userUniqid) {
       _messages.firstWhere((element) => element.messageContent == messagePayload.message && element.uuid == "").uuid = messagePayload.uuid!;
     } else {
@@ -33,7 +34,19 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   @override
   void initState() {
     msgListener = addMsgFromServer;
-    socket!.on("message", (data) => addMsgFromServer(data));
+    socket!.on("message", (data) {
+      var parsedMessage = MessageRes.fromJson(data);
+      addMsgFromServer(parsedMessage);
+    });
+    socket!.on('channel messages', (data){
+      var bulk = BulkMessageRes.fromJson(data);
+      for (var message in bulk.messages!) {
+        print(message);
+        var parsedMessage = MessageRes.fromJson(message);
+        addMsgFromServer(parsedMessage);
+      }
+    });
+    socket!.emit('get messages', ChannelReq(channel: "GENERAL_CHANNEL", server: "GENERAL_SERVER"));
     super.initState();
   }
 
