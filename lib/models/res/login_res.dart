@@ -3,16 +3,22 @@ class LoginRes{
   String? msg;
   String? token;
   String? selector;
+  String? uniqid;
+  String? nickname;
+  int? tag;
 
   LoginRes({
     required this.success,
   });
 
   LoginRes.fromJson(Map<String, dynamic> json):
-        success = json['success'],
-        msg = json['msg'],
-        token = json['token'],
-        selector = json['selector'];
+    success = json['success'],
+    msg = json['msg'],
+    token = json['token'],
+    selector = json['selector'],
+    uniqid = json['uniqid'],
+    nickname = json['nickname'],
+    tag = json['tag'];
 
   Map<String, dynamic> toJson() {
     return {
@@ -20,6 +26,9 @@ class LoginRes{
       'msg': msg,
       'token': token,
       'selector': selector,
+      'uniqid': uniqid,
+      'nickname': nickname,
+      'tag': tag,
     };
   }
 }

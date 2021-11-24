@@ -1,6 +1,6 @@
 import 'package:front/ApiClient/api_client.dart';
-import 'package:front/models/req/login_model.dart';
-import 'package:front/models/req/register_model.dart';
+import 'package:front/models/req/login_req.dart';
+import 'package:front/models/req/register_req.dart';
 
 class AuthService {
   static Future<dynamic> register(RegisterReq req) async {

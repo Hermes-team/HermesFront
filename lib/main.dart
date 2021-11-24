@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
               primaryVariant: Color(0xFFFAFAFA),
               secondary: Color(0xFF8C8C8C),
               secondaryVariant: Color(0xFF585858),
-              surface: Color(0xFF223239),
+              surface: Color(0xff213339),
               background: Color(0xFF29454E),
               error: Color(0xFFCD2828),
               onPrimary: Color(0xFFFAFAFA),
