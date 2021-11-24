@@ -81,7 +81,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 ),
                 const CircleAvatar(
                   backgroundImage: NetworkImage(
-                      "<https://randomuser.me/api/portraits/men/5.jpg>"),
+                      "https://randomuser.me/api/portraits/men/5.jpg"),
                   maxRadius: 20,
                 ),
                 const SizedBox(
