@@ -25,6 +25,7 @@ flutter:
   assets:
     - imgs/hermes.png
     - imgs/userImage1.jpeg
+    - assets/icons/.
   fonts:
     - family: ZenKurenaido
       fonts:

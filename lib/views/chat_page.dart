@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_users_model.dart';
+import 'package:front/views/profile_page.dart';
 import 'package:front/widgets/conversation_list.dart';
 
 class ChatPage extends StatefulWidget {
@@ -105,7 +106,11 @@ class _ChatPageState extends State<ChatPage> {
                 ),
                 IconButton(
                   onPressed: () {
-                    //Navigator.pop(context);
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return const ProfileScreen();
+                      }));
+
                   },
                   icon: const Icon(
                     Icons.settings,
