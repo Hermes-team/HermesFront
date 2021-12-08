@@ -108,7 +108,7 @@ class _ListOfChatsState extends State<ListOfChats> {
                   onPressed: () {
 
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return const ProfileScreen();
+                        return ProfilePage();
                       }));
 
                   },

@@ -3,8 +3,18 @@ import 'package:front/views/contacts_page.dart';
 import 'package:front/views/invite_friend_page.dart';
 import 'package:front/views/new_message_page.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+// class ProfileScreen extends StatelessWidget {
+//   const ProfileScreen({Key? key}) : super(key: key);
+
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  late String name = "Mia";
+  late String email = "mia_123@gmail.com";
+  late String img = "assets/imgs/p3.png";
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +43,13 @@ class ProfileScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               child: Row(
                 children: [
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12.0),
                     child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: AssetImage("assets/imgs/p3.png"),
+                      maxRadius: 50,
+                      child: Image.asset(
+                        img,
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -45,21 +57,21 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      SizedBox(
+                    children: [
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
-                        "Mia",
+                        name,
                         style: TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.w100),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Opacity(
                         opacity: 0.6,
                         child: Text(
-                          "mia_123@gmail.com",
+                          email,
                           style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
                         ),
                       ),
