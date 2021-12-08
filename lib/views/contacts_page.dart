@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:front/views/private_chat_page.dart';
 
-class NewMessagePage extends StatefulWidget {
+class ContactsPage extends StatefulWidget {
   @override
-  _NewMessagePageState createState() => _NewMessagePageState();
+  _ContactsState createState() => _ContactsState();
 }
 
-class _NewMessagePageState extends State<NewMessagePage> {
+class _ContactsState extends State<ContactsPage> {
   List<Map<String, dynamic>> contacts = [
     {"name": "Liam", "img": "assets/imgs/p2.png"},
     {"name": "Olivia", "img": "assets/imgs/p3.png"},
@@ -36,7 +36,7 @@ class _NewMessagePageState extends State<NewMessagePage> {
           color: Colors.grey,
         ),
         title: const Text(
-          'New Message',
+          'Contacts',
           style: TextStyle(fontSize: 22, color: Color(0xffEBEBEB), fontWeight: FontWeight.w900),
         ),
       ),

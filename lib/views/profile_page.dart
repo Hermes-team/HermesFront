@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:front/views/contacts_page.dart';
+import 'package:front/views/invite_friend_page.dart';
 import 'package:front/views/new_message_page.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -44,18 +46,23 @@ class ProfileScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      SizedBox(height: 20,),
-                      Text("Mia",
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Mia",
                         style: TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.w100),
-                        ),
-                      SizedBox(height: 20,),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Opacity(
                         opacity: 0.6,
-                        child: Text("mia_123@gmail.com",
+                        child: Text(
+                          "mia_123@gmail.com",
                           style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
-                          ),
                         ),
-
+                      ),
                     ],
                   ),
                 ],
@@ -146,9 +153,9 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      //   return const ProfileScreen();
-                      // }));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return ContactsPage();
+                      }));
                     },
                     child: Row(
                       children: const [
@@ -171,9 +178,9 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      //   return const ProfileScreen();
-                      // }));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return InviteFriendPage();
+                      }));
                     },
                     child: Row(
                       children: const [
@@ -185,7 +192,7 @@ class ProfileScreen extends StatelessWidget {
                           width: 17,
                         ),
                         Text(
-                          'Invite friends',
+                          'Invite Friend',
                           style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
                         ),
                       ],
