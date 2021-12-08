@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/views/new_message_page.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: const Color(0xFF223239),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: const Color(0xFF223239),
+        backgroundColor: const Color(0xFF182226),
         // toolbarHeight: 65,
         iconTheme: const IconThemeData(
           color: Colors.grey,
@@ -21,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -34,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 12.0),
                     child: CircleAvatar(
                       radius: 50,
-                      backgroundImage: AssetImage("assets/icons/user.png"),
+                      backgroundImage: AssetImage("assets/imgs/p3.png"),
                     ),
                   ),
                   const SizedBox(
@@ -51,7 +52,7 @@ class ProfileScreen extends StatelessWidget {
                       Opacity(
                         opacity: 0.6,
                         child: Text("mia_123@gmail.com",
-                          style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.w100),
+                          style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
                           ),
                         ),
 
@@ -70,9 +71,9 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      //   return const ProfileScreen();
-                      // }));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return NewMessagePage();
+                      }));
                     },
                     child: Row(
                       children: const [
@@ -85,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Text(
                           'New Message',
-                          style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.w100),
+                          style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
                         ),
                       ],
                     ),
@@ -110,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Text(
                           'New Group',
-                          style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.w100),
+                          style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
                         ),
                       ],
                     ),
@@ -135,7 +136,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Text(
                           'Add Contact',
-                          style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.w100),
+                          style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
                         ),
                       ],
                     ),
@@ -160,7 +161,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Text(
                           'Contacts',
-                          style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.w100),
+                          style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
                         ),
                       ],
                     ),
@@ -185,7 +186,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Text(
                           'Invite friends',
-                          style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.w100),
+                          style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
                         ),
                       ],
                     ),

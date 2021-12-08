@@ -3,12 +3,12 @@ import 'package:front/models/chat_users_model.dart';
 import 'package:front/views/profile_page.dart';
 import 'package:front/widgets/conversation_list.dart';
 
-class ChatPage extends StatefulWidget {
+class ListOfChats extends StatefulWidget {
   @override
-  _ChatPageState createState() => _ChatPageState();
+  _ListOfChatsState createState() => _ListOfChatsState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ListOfChatsState extends State<ListOfChats> {
   List<ChatUsers> chatUsers = [
     ChatUsers(
         name: "Jane Russel",
@@ -85,7 +85,7 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xff213339),
+        backgroundColor: const Color(0xFF182226),
         title: Center(
           child: Container(
             child: Row(

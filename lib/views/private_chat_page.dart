@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_message_model.dart';
 
-class ChatDetailPage extends StatefulWidget {
+class PrivateChatPage extends StatefulWidget {
   @override
-  _ChatDetailPageState createState() => _ChatDetailPageState();
+  _PrivateChatPageState createState() => _PrivateChatPageState();
 }
 
-class _ChatDetailPageState extends State<ChatDetailPage> {
+class _PrivateChatPageState extends State<PrivateChatPage> {
   List<ChatMessage> messages = [
     ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
     ChatMessage(messageContent: "How have you been?", messageType: "receiver"),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/chat_detail_page.dart';
+import 'package:front/views/private_chat_page.dart';
 
 class ConversationList extends StatefulWidget {
   String name;
@@ -25,7 +25,7 @@ class _ConversationListState extends State<ConversationList> {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return ChatDetailPage();
+          return PrivateChatPage();
         }));
       },
       child: Container(
