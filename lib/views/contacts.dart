@@ -14,13 +14,13 @@ class _ContactsState extends State<ContactsPage> {
     {"name": "Oscar", "img": "assets/imgs/p4.png"},
     {"name": "Ivy", "img": "assets/imgs/p1.png"},
     {"name": "Jack", "img": "assets/imgs/p5.png"},
-    {"name": "Liam", "img": "assets/imgs/p2.png"},
-    {"name": "Olivia", "img": "assets/imgs/p3.png"},
-    {"name": "Ava", "img": "assets/imgs/p6.png"},
-    {"name": "Oscar", "img": "assets/imgs/p4.png"},
-    {"name": "Ivy", "img": "assets/imgs/p1.png"},
-    {"name": "Jack", "img": "assets/imgs/p5.png"},
-    {"name": "Liam", "img": "assets/imgs/p2.png"}
+    {"name": "Noah", "img": "assets/imgs/p2.png"},
+    {"name": "Oliver", "img": "assets/imgs/p3.png"},
+    {"name": "William", "img": "assets/imgs/p6.png"},
+    {"name": "Sophia", "img": "assets/imgs/p4.png"},
+    {"name": "Mary", "img": "assets/imgs/p1.png"},
+    {"name": "Alexander", "img": "assets/imgs/p5.png"},
+    {"name": "Lucas", "img": "assets/imgs/p2.png"}
   ];
 
   @override
