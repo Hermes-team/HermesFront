@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'list_of_chats.dart';
+import '../widgets/list_of_chats.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

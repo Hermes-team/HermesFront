@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_users_model.dart';
-import 'package:front/views/profile_page.dart';
+import 'package:front/views/profile.dart';
 import 'package:front/widgets/conversation_list.dart';
 
 class ListOfChats extends StatefulWidget {
@@ -17,61 +17,61 @@ class _ListOfChatsState extends State<ListOfChats> {
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
         time: "Now"),
     ChatUsers(
-        name: "Glady's Murphy",
+        name: "Liam",
         messageText: "That's Great",
         imageURL:
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
         time: "Yesterday"),
     ChatUsers(
-        name: "Jorge Henry",
+        name: "Olivia",
         messageText: "Hey where are you?",
         imageURL:
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
         time: "31 Mar"),
     ChatUsers(
-        name: "Philip Fox",
+        name: "Ava",
         messageText: "Busy! Call me in 20 mins",
         imageURL:
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
         time: "28 Mar"),
     ChatUsers(
-        name: "Debra Hawkins",
+        name: "Oscar",
         messageText: "Thankyou, It's awesome",
         imageURL:
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
         time: "23 Mar"),
     ChatUsers(
-        name: "Jacob Pena",
+        name: "Ivy",
         messageText: "will update you in evening",
         imageURL:
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
         time: "17 Mar"),
     ChatUsers(
-        name: "Andrey Jones",
+        name: "Jack",
         messageText: "Can you please share the file?",
         imageURL:
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
         time: "24 Feb"),
     ChatUsers(
-        name: "John Wick",
+        name: "Emma",
         messageText: "How are you?",
         imageURL:
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
         time: "18 Feb"),
     ChatUsers(
-        name: "Jacob Pena",
+        name: "Charlotte",
         messageText: "will update you in evening",
         imageURL:
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
         time: "17 Mar"),
     ChatUsers(
-        name: "Andrey Jones",
+        name: "Noah",
         messageText: "Can you please share the file?",
         imageURL:
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
         time: "24 Feb"),
     ChatUsers(
-        name: "John Wick",
+        name: "Oliver",
         messageText: "How are you?",
         imageURL:
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
@@ -92,10 +92,11 @@ class _ListOfChatsState extends State<ListOfChats> {
               children: <Widget>[
                 const Expanded(
                   child: TextField(
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "Search...",
-                      hintStyle: TextStyle(color: Color(0xff8D8D8D)),
+                      hintStyle: TextStyle(color: Color(0xFFc9c9c9)),
                       prefixIcon: Icon(
                         Icons.search,
                         color: Color(0xff8D8D8D),
@@ -106,11 +107,9 @@ class _ListOfChatsState extends State<ListOfChats> {
                 ),
                 IconButton(
                   onPressed: () {
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return ProfilePage();
-                      }));
-
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return ProfilePage();
+                    }));
                   },
                   icon: const Icon(
                     Icons.settings,

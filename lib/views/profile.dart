@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/contacts_page.dart';
-import 'package:front/views/invite_friend_page.dart';
-import 'package:front/views/new_message_page.dart';
+import 'package:front/views/contacts.dart';
+import 'package:front/views/invite_friend.dart';
+import 'package:front/views/new_message.dart';
 
 // class ProfileScreen extends StatelessWidget {
 //   const ProfileScreen({Key? key}) : super(key: key);

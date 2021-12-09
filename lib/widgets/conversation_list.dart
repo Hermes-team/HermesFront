@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/private_chat_page.dart';
+import 'package:front/views/private_chat.dart';
 
 class ConversationList extends StatefulWidget {
   String name;
@@ -9,11 +9,7 @@ class ConversationList extends StatefulWidget {
   bool isMessageRead;
 
   ConversationList(
-      {required this.name,
-      required this.messageText,
-      required this.imageUrl,
-      required this.time,
-      required this.isMessageRead});
+      {required this.name, required this.messageText, required this.imageUrl, required this.time, required this.isMessageRead});
 
   @override
   _ConversationListState createState() => _ConversationListState();
@@ -29,15 +25,29 @@ class _ConversationListState extends State<ConversationList> {
         }));
       },
       child: Container(
-        padding:
-            const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
         child: Row(
           children: <Widget>[
             Expanded(
               child: Row(
                 children: <Widget>[
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 1.0),
+                  //   child: CircleAvatar(
+                  //     maxRadius: 30,
+                  //     child: Image.asset(
+                  //       widget.imageUrl,
+                  //     ),
+                  //   ),
+                  // ),
+                  // CircleAvatar(
+                  //   maxRadius: 30.0,
+                  //   child: Image.asset(
+                  //     widget.imageUrl,
+                  //   ),
+                  // ),
                   CircleAvatar(
-                    backgroundImage: NetworkImage(widget.imageUrl),
+                    backgroundImage:  AssetImage(widget.imageUrl),
                     maxRadius: 30,
                   ),
                   const SizedBox(
@@ -51,8 +61,7 @@ class _ConversationListState extends State<ConversationList> {
                         children: <Widget>[
                           Text(
                             widget.name,
-                            style: const TextStyle(
-                                fontSize: 16, color: Color(0xffEBEBEB)),
+                            style: const TextStyle(fontSize: 16, color: Color(0xffEBEBEB)),
                           ),
                           const SizedBox(
                             height: 6,
@@ -62,9 +71,7 @@ class _ConversationListState extends State<ConversationList> {
                             style: TextStyle(
                                 fontSize: 13,
                                 color: const Color(0xff8d8d8d),
-                                fontWeight: widget.isMessageRead
-                                    ? FontWeight.bold
-                                    : FontWeight.normal),
+                                fontWeight: widget.isMessageRead ? FontWeight.bold : FontWeight.normal),
                           ),
                         ],
                       ),
@@ -77,9 +84,7 @@ class _ConversationListState extends State<ConversationList> {
               widget.time,
               style: TextStyle(
                   fontSize: 12,
-                  fontWeight: widget.isMessageRead
-                      ? FontWeight.bold
-                      : FontWeight.normal,
+                  fontWeight: widget.isMessageRead ? FontWeight.bold : FontWeight.normal,
                   color: const Color(0xff8d8d8d)),
             ),
           ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/private_chat_page.dart';
+import 'package:front/views/private_chat.dart';
 
 class ContactsPage extends StatefulWidget {
   @override
@@ -59,37 +59,33 @@ class _ContactsState extends State<ContactsPage> {
               ),
             ),
             Expanded(
-                child: ListView.builder(
-                    itemCount: contacts.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
-                        child: ListTile(
-                          // onTap: () => navigatePage(
-                          //   context,
-                          //   PrivateChatPage(
-                          //       name: contacts[index]["name"],
-                          //       img: contacts[index]["img"]),
-                          // ),
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return PrivateChatPage();
-                            }));
-                          },
-                          title: Text(
-                            "${contacts[index]["name"]}",
-                            style: TextStyle(fontSize: 16, color: Colors.white),
-                          ),
-                          contentPadding: EdgeInsets.all(4),
-                          leading: CircleAvatar(
-                            maxRadius: 32.0,
-                            child: Image.asset(
-                              "${contacts[index]["img"]}",
-                            ),
-                          ),
+              child: ListView.builder(
+                itemCount: contacts.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return PrivateChatPage();
+                        }));
+                      },
+                      title: Text(
+                        "${contacts[index]["name"]}",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                      contentPadding: EdgeInsets.all(4),
+                      leading: CircleAvatar(
+                        maxRadius: 32.0,
+                        child: Image.asset(
+                          "${contacts[index]["img"]}",
                         ),
-                      );
-                    })),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/private_chat_page.dart';
+import 'package:front/views/private_chat.dart';
 
 class NewMessagePage extends StatefulWidget {
   @override
