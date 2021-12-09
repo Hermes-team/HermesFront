@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:front/views/add_contact.dart';
 import 'package:front/views/contacts.dart';
 import 'package:front/views/invite_friend.dart';
+import 'package:front/views/new_group.dart';
 import 'package:front/views/new_message.dart';
 
 // class ProfileScreen extends StatelessWidget {
@@ -116,9 +117,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   InkWell(
                     onTap: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      //   return const ProfileScreen();
-                      // }));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return NewGroupPage();
+                      }));
                     },
                     child: Row(
                       children: const [
