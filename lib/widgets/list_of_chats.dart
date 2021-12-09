@@ -71,7 +71,7 @@ class _ListOfChatsState extends State<ListOfChats> {
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
         time: "24 Feb"),
     ChatUsers(
-        name: "Oliver",
+        name: "John Wick",
         messageText: "How are you?",
         imageURL:
             "https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1635935953~hmac=ac5a01442439a73ab4c915f5471e2b3a",
@@ -92,7 +92,7 @@ class _ListOfChatsState extends State<ListOfChats> {
               children: <Widget>[
                 const Expanded(
                   child: TextField(
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Color(0xFFc9c9c9)),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "Search...",

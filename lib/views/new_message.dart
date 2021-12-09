@@ -46,10 +46,11 @@ class _NewMessagePageState extends State<NewMessagePage> {
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: const TextField(
+                style: TextStyle(color: Color(0xFFc9c9c9)),
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "Search...",
-                  hintStyle: TextStyle(color: Color(0xff8D8D8D)),
+                  hintStyle: TextStyle(color: Color(0xFFc9c9c9)),
                   prefixIcon: Icon(
                     Icons.search,
                     color: Color(0xff8D8D8D),
