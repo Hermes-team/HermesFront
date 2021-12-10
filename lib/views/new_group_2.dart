@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/private_chat.dart';
+
+import 'group_chat.dart';
 
 class NewGroup2Page extends StatefulWidget {
   @override
@@ -57,7 +58,6 @@ class _NewGroup2PageState extends State<NewGroup2Page> {
                         ),
                       ),
                       Container(
-
                         width: 210,
                         child: TextFormField(
                           controller: nameController,
@@ -137,7 +137,7 @@ class _NewGroup2PageState extends State<NewGroup2Page> {
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return PrivateChatPage(name: nameController.text, img: 'assets/icons/group.png');
+                            return GroupChatPage(name: nameController.text, img: 'assets/icons/group.png');
                           }));
                         }
                       },

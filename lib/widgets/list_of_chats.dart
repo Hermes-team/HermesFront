@@ -23,6 +23,12 @@ class _ListOfChatsState extends State<ListOfChats> {
         "assets/imgs/p2.png",
         time: "31 Mar"),
     ChatUsers(
+        name: "Group",
+        messageText: "Kate: who are you?",
+        imageURL:
+        "assets/icons/group.png",
+        time: "29 Mar"),
+    ChatUsers(
         name: "Ava",
         messageText: "Busy! Call me in 20 mins",
         imageURL:
@@ -47,6 +53,12 @@ class _ListOfChatsState extends State<ListOfChats> {
         "assets/imgs/p6.png",
         time: "24 Feb"),
     ChatUsers(
+        name: "Group",
+        messageText: "Anna: papa",
+        imageURL:
+        "assets/icons/group.png",
+        time: "29 Mar"),
+    ChatUsers(
         name: "Emma",
         messageText: "How are you?",
         imageURL:
@@ -64,6 +76,12 @@ class _ListOfChatsState extends State<ListOfChats> {
         imageURL:
         "assets/imgs/p3.png",
         time: "24 Feb"),
+    ChatUsers(
+        name: "Group",
+        messageText: "Ben: lololo lololo",
+        imageURL:
+        "assets/icons/group.png",
+        time: "19 Feb"),
     ChatUsers(
         name: "John",
         messageText: "How are you?",
@@ -136,6 +154,7 @@ class _ListOfChatsState extends State<ListOfChats> {
                       img: chatUsers[index].imageURL,
                       time: chatUsers[index].time,
                       isMessageRead: (index == 0 || index == 3) ? true : false,
+                      isGroup: chatUsers[index].name == 'Group' ? true : false,
                     );
                   },
                 ),

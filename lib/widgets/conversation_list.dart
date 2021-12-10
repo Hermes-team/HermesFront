@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/views/group_chat.dart';
 import 'package:front/views/private_chat.dart';
 
 class ConversationList extends StatefulWidget {
@@ -7,9 +8,10 @@ class ConversationList extends StatefulWidget {
   String img;
   String time;
   bool isMessageRead;
+  bool isGroup;
 
   ConversationList(
-      {required this.name, required this.messageText, required this.img, required this.time, required this.isMessageRead});
+      {required this.name, required this.messageText, required this.img, required this.time, required this.isMessageRead, required this.isGroup});
 
   @override
   _ConversationListState createState() => _ConversationListState();
@@ -20,9 +22,15 @@ class _ConversationListState extends State<ConversationList> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return PrivateChatPage(name: widget.name, img: widget.img);
-        }));
+        if (widget.isGroup==false) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return PrivateChatPage(name: widget.name, img: widget.img);
+          }));
+        } else {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return GroupChatPage(name: widget.name, img: widget.img);
+          }));
+        }
       },
       child: Container(
         padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
