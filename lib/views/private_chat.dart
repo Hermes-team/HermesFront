@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:front/models/chat_message_model.dart';
 
 class PrivateChatPage extends StatefulWidget {
+  String name;
+  String img;
+
+  PrivateChatPage({required this.name, required this.img});
+
   @override
   _PrivateChatPageState createState() => _PrivateChatPageState();
 }
 
 class _PrivateChatPageState extends State<PrivateChatPage> {
-  late String name = "Kriss";
-  late String img = "assets/imgs/p5.png";
+  // late String name = "Kriss";
+  // late String img = "assets/imgs/p5.png";
 
   List<ChatMessage> messages = [
     ChatMessage(messageContent: "last sms", messageType: "sender"),
@@ -40,6 +45,16 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
   //final _formKey = GlobalKey<FormState>();
   bool isExpanded = false;
 
+  RelativeRect buttonMenuPosition(BuildContext context) {
+    final RenderBox bar = context.findRenderObject() as RenderBox;
+    final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
+    Offset offset = Offset.zero;
+    final RelativeRect position =
+        RelativeRect.fromRect(Rect.fromPoints(bar.size.bottomRight(offset)  , bar.size.bottomRight(offset) + Offset(40, 10)), Rect.zero);
+
+    return position;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +83,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                 CircleAvatar(
                   maxRadius: 20,
                   child: Image.asset(
-                    img,
+                    widget.img,
                   ),
                 ),
                 const SizedBox(
@@ -80,7 +95,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        name,
+                        widget.name,
                         style: const TextStyle(color: Color(0xFFc9c9c9), fontSize: 16, fontWeight: FontWeight.w100),
                       ),
                     ],
@@ -108,8 +123,10 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                           children: const [
                             Image(
                               image: AssetImage("assets/icons/search.png"),
-                              height: 15,
+                              // height: 15,
+                              width: 22,
                             ),
+                            // Icon(Icons.search),
                             SizedBox(
                               width: 10,
                             ),
@@ -123,8 +140,10 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                           children: const [
                             Image(
                               image: AssetImage("assets/icons/volume-mute.png"),
-                              height: 15,
+                              // height: 15,
+                              width: 25,
                             ),
+                            //Icon(Icons.search),
                             SizedBox(
                               width: 10,
                             ),
@@ -138,8 +157,10 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                           children: const [
                             Image(
                               image: AssetImage("assets/icons/trash.png"),
-                              height: 15,
+                              // height: 15,
+                              width: 26,
                             ),
+                            //Icon(Icons.search),
                             SizedBox(
                               width: 10,
                             ),
@@ -183,7 +204,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                             bottomLeft: Radius.circular(messages[index].messageType == "receiver" ? 0 : 12),
                             bottomRight: Radius.circular(messages[index].messageType == "receiver" ? 12 : 0),
                           ),
-                          color: (messages[index].messageType != "receiver" ? Color(0xff2A454e) : Color(0xFF182226)),
+                          color: (messages[index].messageType != "receiver" ? Color(0xFF5A7059) : Color(0xFF182226)),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                         child: Text(
@@ -218,146 +239,108 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                     const SizedBox(
                       width: 15,
                     ),
-                    FloatingActionButton(
-                      onPressed: () {},
-                      child: const Icon(
-                        Icons.send,
-                        color: Color(0xFF182226),
-                        size: 18,
+                    GestureDetector(
+                      onTap: () {},
+                      onLongPress: () {
+                        final RelativeRect position = buttonMenuPosition(context);
+                        showMenu(
+                          context: context,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(60.0),
+                            ),
+                          ),
+                          color: const Color(0xFF5A7059),
+                          position: position,
+                          items: [
+                            PopupMenuItem(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: const [
+                                  Image(
+                                    image: AssetImage("assets/icons/image.png"),
+                                    height: 30,
+                                    width: 30,
+                                  ),
+                                  // // Icon(Icons.search),
+                                ],
+                              ),
+                              value: "Search",
+                            ),
+                            PopupMenuItem(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: const [
+                                  Image(
+                                    image: AssetImage("assets/icons/smile.png"),
+                                    height: 30,
+                                    width: 30,
+                                  ),
+                                  // // Icon(Icons.search),
+                                ],
+                              ),
+                              value: "Search",
+                            ),
+                            PopupMenuItem(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: const [
+                                  Image(
+                                    image: AssetImage("assets/icons/gif.png"),
+                                    height: 30,
+                                    width: 30,
+                                  ),
+                                  // // Icon(Icons.search),
+                                ],
+                              ),
+                              value: "Search",
+                            ),
+                            PopupMenuItem(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: const [
+                                  Image(
+                                    image: AssetImage("assets/icons/sticker.png"),
+                                    height: 30,
+                                    width: 30,
+                                  ),
+                                  // // Icon(Icons.search),
+                                ],
+                              ),
+                              value: "Search",
+                            ),
+                            PopupMenuItem(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: const [
+                                  Image(
+                                    image: AssetImage("assets/icons/triangle.png"),
+                                    height: 25,
+                                    width: 25,
+                                  ),
+                                  // // Icon(Icons.search),
+                                ],
+                              ),
+                              value: "Search",
+                            ),
+                          ],
+                        );
+                      },
+                      child: const CircleAvatar(
+                        backgroundColor: const Color(0xFF5A7059),
+                        child: Icon(
+                          Icons.send,
+                          color: Color(0xFF182226),
+                          size: 18,
+                        ),
                       ),
-                      backgroundColor: const Color(0xff2A454e),
-                      elevation: 0,
                     ),
 
-                    // GestureDetector(
-                    //   onTap: () {
-                    //
-                    //
-                    //
-                    //   },
-                    //   onLongPress: () {
-                    //     isExpanded = !isExpanded;
-                    //     setState(() {});
-                    //     // final RelativeRect position = buttonMenuPosition(context);
-                    //     // showMenu(
-                    //     //   context: context,
-                    //     //   color: Colors.white,
-                    //     //   shape: RoundedRectangleBorder(
-                    //     //     borderRadius: BorderRadius.all(
-                    //     //       Radius.circular(10.0),
-                    //     //     ),
-                    //     //   ),
-                    //     //   position: position,
-                    //     //   items: [
-                    //     //     PopupMenuItem(
-                    //     //       child: Row(
-                    //     //         mainAxisAlignment: MainAxisAlignment.center,
-                    //     //         crossAxisAlignment: CrossAxisAlignment.center,
-                    //     //         children: [
-                    //     //           Container(
-                    //     //             width: getDeviceWidth(context, 0.1),
-                    //     //             height: getDeviceWidth(context, 0.1),
-                    //     //             child: Image.asset('assets/icons/image.png'),
-                    //     //           ),
-                    //     //         ],
-                    //     //       ),
-                    //     //     ),
-                    //     //     PopupMenuItem(
-                    //     //       child: Row(
-                    //     //         mainAxisAlignment: MainAxisAlignment.center,
-                    //     //         crossAxisAlignment: CrossAxisAlignment.center,
-                    //     //         children: [
-                    //     //           Container(
-                    //     //             width: getDeviceWidth(context, 0.1),
-                    //     //             height: getDeviceWidth(context, 0.1),
-                    //     //             child: Image.asset('assets/icons/smile.png'),
-                    //     //           ),
-                    //     //         ],
-                    //     //       ),
-                    //     //     ),
-                    //     //     PopupMenuItem(
-                    //     //       child: Row(
-                    //     //         mainAxisAlignment: MainAxisAlignment.center,
-                    //     //         crossAxisAlignment: CrossAxisAlignment.center,
-                    //     //         children: [
-                    //     //           Container(
-                    //     //             width: getDeviceWidth(context, 0.1),
-                    //     //             height: getDeviceWidth(context, 0.1),
-                    //     //             child: Image.asset('assets/icons/gif.png'),
-                    //     //           ),
-                    //     //         ],
-                    //     //       ),
-                    //     //     ),
-                    //     //     PopupMenuItem(
-                    //     //       child: Row(
-                    //     //         mainAxisAlignment: MainAxisAlignment.center,
-                    //     //         crossAxisAlignment: CrossAxisAlignment.center,
-                    //     //         children: [
-                    //     //           Container(
-                    //     //             width: getDeviceWidth(context, 0.1),
-                    //     //             height: getDeviceWidth(context, 0.1),
-                    //     //             child: Image.asset('assets/icons/sticker.png'),
-                    //     //           ),
-                    //     //         ],
-                    //     //       ),
-                    //     //     ),
-                    //     //   ],
-                    //     // );
-                    //   },
-                    //   // child: const CircleAvatar(
-                    //   //   backgroundColor: Color(0xff2A454e),
-                    //   //   child: Icon(
-                    //   //     Icons.send,
-                    //   //     color: Color(0xFF182226),
-                    //   //   ),
-                    //   // ),
-                    //
-                    //   child: Container(
-                    //     decoration: BoxDecoration(
-                    //         borderRadius: BorderRadius.circular(isExpanded ? 60 : 30.0),
-                    //         boxShadow: [
-                    //           BoxShadow(
-                    //             blurRadius: 5.0,
-                    //             spreadRadius: 8.0,
-                    //             color: Colors.black.withOpacity(0.1),
-                    //             offset: Offset(0.0, 2.0),
-                    //           ),
-                    //         ],
-                    //         color: Color(0xff2A454e)),
-                    //     child: isExpanded
-                    //         ? Column(
-                    //       children: [
-                    //         const SizedBox(height: 10),
-                    //         Padding(
-                    //           padding: const EdgeInsets.all(8.0),
-                    //           child: Image.asset("assets/icons/image.png", width: 30, height: 25),
-                    //         ),
-                    //         Padding(
-                    //           padding: const EdgeInsets.all(8.0),
-                    //           child: Image.asset("assets/icons/smile.png", width: 30, height: 25),
-                    //         ),
-                    //         Padding(
-                    //           padding: const EdgeInsets.all(8.0),
-                    //           child: Image.asset("assets/icons/gif.png", width: 30, height: 25),
-                    //         ),
-                    //         Padding(
-                    //           padding: const EdgeInsets.all(8.0),
-                    //           child: Image.asset("assets/icons/sticker.png", width: 30, height: 25),
-                    //         ),
-                    //         const SizedBox(height: 10),
-                    //       ],
-                    //     )
-                    //         : const Center(
-                    //       child: CircleAvatar(
-                    //         backgroundColor: Color(0xff2A454e),
-                    //         child: Icon(
-                    //           Icons.send,
-                    //           color: Color(0xFF182226),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -365,6 +348,83 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+
+
+class GetMediaWidget extends StatefulWidget {
+  const GetMediaWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<GetMediaWidget> createState() => _GetMediaWidgetState();
+}
+
+class _GetMediaWidgetState extends State<GetMediaWidget> {
+  bool isExpanded = false;
+  late double height, width;
+
+  @override
+  Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+
+    return Positioned(
+      bottom: 6,
+      right: 15,
+      child: GestureDetector(
+        onTap: () {
+          isExpanded = !isExpanded;
+          setState(() {});
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(isExpanded ? 60 : 30.0),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 5.0,
+                  spreadRadius: 8.0,
+                  color: Colors.black.withOpacity(0.1),
+                  offset: Offset(0.0, 2.0),
+                ),
+              ],
+              color: Colors.blue),
+          child: isExpanded
+              ? Column(
+            children: [
+              const SizedBox(height: 10),
+              _getImageItem("assets/icons/image.png"),
+              _getImageItem("assets/icons/smile.png"),
+              _getImageItem("assets/icons/gif.png"),
+              _getImageItem("assets/icons/sticker.png"),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(Icons.arrow_drop_down_rounded,
+                    color: Colors.black),
+              ),
+              const SizedBox(height: 10),
+            ],
+          )
+              : Center(
+              child: IconButton(
+                icon: Icon(
+                  Icons.play_arrow,
+                  color: Colors.black,
+                ),
+                onPressed: null,
+              )),
+        ),
+      ),
+    );
+  }
+
+  Padding _getImageItem(String image) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Image.asset(image, width: 30, height: 25),
     );
   }
 }
