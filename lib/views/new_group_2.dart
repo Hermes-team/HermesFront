@@ -14,6 +14,7 @@ class _NewGroup2PageState extends State<NewGroup2Page> {
   ];
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +57,10 @@ class _NewGroup2PageState extends State<NewGroup2Page> {
                         ),
                       ),
                       Container(
+
                         width: 210,
                         child: TextFormField(
+                          controller: nameController,
                           decoration: const InputDecoration(
                               hintText: "Enter group name",
                               hintStyle: TextStyle(color: Colors.white),
@@ -134,7 +137,7 @@ class _NewGroup2PageState extends State<NewGroup2Page> {
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return PrivateChatPage();
+                            return PrivateChatPage(name: nameController.text, img: 'assets/icons/group.png');
                           }));
                         }
                       },

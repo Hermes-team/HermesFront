@@ -74,7 +74,7 @@ class _NewMessagePageState extends State<NewMessagePage> {
                       // ),
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return PrivateChatPage();
+                          return PrivateChatPage(name: contacts[index]["name"],img: contacts[index]["img"]);
                         }));
                       },
                       title: Text(

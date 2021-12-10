@@ -5,9 +5,6 @@ import 'package:front/views/invite_friend.dart';
 import 'package:front/views/new_group.dart';
 import 'package:front/views/new_message.dart';
 
-// class ProfileScreen extends StatelessWidget {
-//   const ProfileScreen({Key? key}) : super(key: key);
-
 class ProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -32,7 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         title: const Text(
           'Profile',
-          style: TextStyle(fontSize: 22, color: Color(0xffEBEBEB), fontWeight: FontWeight.w900),
+          style: TextStyle(fontSize: 26, color: Color(0xffEBEBEB), fontWeight: FontWeight.w900),
         ),
       ),
       body: Padding(
@@ -65,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       Text(
                         name,
-                        style: TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.w100),
+                        style: TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.w100),
                       ),
                       const SizedBox(
                         height: 20,

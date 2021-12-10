@@ -8,6 +8,7 @@ class AddContactPage extends StatefulWidget {
 
 class _AddContactPageState extends State<AddContactPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,7 @@ class _AddContactPageState extends State<AddContactPage> {
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: nameController,
                         style: TextStyle(color: Color(0xFFc9c9c9)),
                         decoration: InputDecoration(hintText: "Name"),
                         validator: (value) {
@@ -71,7 +73,9 @@ class _AddContactPageState extends State<AddContactPage> {
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return PrivateChatPage();
+                        print("here");
+                        print(nameController.text);
+                        return PrivateChatPage(name: nameController.text, img: 'assets/icons/user.png');
                       }));
                     }
                   },

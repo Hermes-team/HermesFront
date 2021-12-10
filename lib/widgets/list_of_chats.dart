@@ -35,13 +35,13 @@ class _ListOfChatsState extends State<ListOfChats> {
         "assets/imgs/p4.png",
         time: "23 Mar"),
     ChatUsers(
-        name: "Ivy",
+        name: "Jack",
         messageText: "will update you in evening",
         imageURL:
         "assets/imgs/p5.png",
         time: "17 Mar"),
     ChatUsers(
-        name: "Jack",
+        name: "Ivy",
         messageText: "Can you please share the file?",
         imageURL:
         "assets/imgs/p6.png",
@@ -133,7 +133,7 @@ class _ListOfChatsState extends State<ListOfChats> {
                     return ConversationList(
                       name: chatUsers[index].name,
                       messageText: chatUsers[index].messageText,
-                      imageUrl: chatUsers[index].imageURL,
+                      img: chatUsers[index].imageURL,
                       time: chatUsers[index].time,
                       isMessageRead: (index == 0 || index == 3) ? true : false,
                     );

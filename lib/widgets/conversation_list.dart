@@ -4,12 +4,12 @@ import 'package:front/views/private_chat.dart';
 class ConversationList extends StatefulWidget {
   String name;
   String messageText;
-  String imageUrl;
+  String img;
   String time;
   bool isMessageRead;
 
   ConversationList(
-      {required this.name, required this.messageText, required this.imageUrl, required this.time, required this.isMessageRead});
+      {required this.name, required this.messageText, required this.img, required this.time, required this.isMessageRead});
 
   @override
   _ConversationListState createState() => _ConversationListState();
@@ -21,7 +21,7 @@ class _ConversationListState extends State<ConversationList> {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return PrivateChatPage();
+          return PrivateChatPage(name: widget.name, img: widget.img);
         }));
       },
       child: Container(
@@ -31,23 +31,8 @@ class _ConversationListState extends State<ConversationList> {
             Expanded(
               child: Row(
                 children: <Widget>[
-                  // Padding(
-                  //   padding: EdgeInsets.symmetric(horizontal: 1.0),
-                  //   child: CircleAvatar(
-                  //     maxRadius: 30,
-                  //     child: Image.asset(
-                  //       widget.imageUrl,
-                  //     ),
-                  //   ),
-                  // ),
-                  // CircleAvatar(
-                  //   maxRadius: 30.0,
-                  //   child: Image.asset(
-                  //     widget.imageUrl,
-                  //   ),
-                  // ),
                   CircleAvatar(
-                    backgroundImage:  AssetImage(widget.imageUrl),
+                    backgroundImage: AssetImage(widget.img),
                     maxRadius: 30,
                   ),
                   const SizedBox(
