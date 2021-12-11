@@ -221,55 +221,53 @@ class _GroupChatPageState extends State<GroupChatPage> {
                     children: [
                       (filtedMsg[index].messageType == "sender" && filtedMsg[index].viewImg)
                           ? Container(
-                              margin: EdgeInsets.symmetric(horizontal: 9.0, vertical: 6.0),
+                              margin: EdgeInsets.symmetric(horizontal: 9.0),
                               child: CircleAvatar(
                                 child: Image.asset(filtedMsg[index].imgs),
                               ),
                             )
                           : Container(
-                              margin: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+                              margin: EdgeInsets.symmetric(horizontal: 14.0),
                               child: const SizedBox(
                                 width: 30,
                               ),
                             ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: filtedMsg[index].messageType == "receiver" ? 45 : 3,
-                            right: filtedMsg[index].messageType == "receiver" ? 15 : 45,
-                            top: 3,
-                            bottom: 3),
-                        child: Align(
-                          alignment: (filtedMsg[index].messageType == "receiver" ? Alignment.topLeft : Alignment.topRight),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(index < filtedMsg.length - 1 &&
-                                        filtedMsg[index].owner == filtedMsg[index + 1].owner &&
-                                        filtedMsg[index].messageType != "receiver"
-                                    ? 5
-                                    : 16),
-                                topRight: Radius.circular(index < filtedMsg.length - 1 &&
-                                        filtedMsg[index].owner == filtedMsg[index + 1].owner &&
-                                        filtedMsg[index].messageType == "receiver"
-                                    ? 5
-                                    : 16),
-                                bottomLeft: Radius.circular(index > 0 &&
-                                        filtedMsg[index].owner == filtedMsg[index - 1].owner &&
-                                        filtedMsg[index].messageType != "receiver"
-                                    ? 5
-                                    : 16),
-                                bottomRight: Radius.circular(index > 0 &&
-                                        filtedMsg[index].owner == filtedMsg[index - 1].owner &&
-                                        filtedMsg[index].messageType == "receiver"
-                                    ? 5
-                                    : 16),
+                      Flexible(
+                        child: Container(
+                          padding: EdgeInsets.only(right: 15, top: 3, bottom: 3),
+                          child: Align(
+                            alignment: (filtedMsg[index].messageType == "receiver" ? Alignment.topRight : Alignment.topLeft),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(index < filtedMsg.length - 1 &&
+                                          filtedMsg[index].owner == filtedMsg[index + 1].owner &&
+                                          filtedMsg[index].messageType != "receiver"
+                                      ? 5
+                                      : 16),
+                                  topRight: Radius.circular(index < filtedMsg.length - 1 &&
+                                          filtedMsg[index].owner == filtedMsg[index + 1].owner &&
+                                          filtedMsg[index].messageType == "receiver"
+                                      ? 5
+                                      : 16),
+                                  bottomLeft: Radius.circular(index > 0 &&
+                                          filtedMsg[index].owner == filtedMsg[index - 1].owner &&
+                                          filtedMsg[index].messageType != "receiver"
+                                      ? 5
+                                      : 16),
+                                  bottomRight: Radius.circular(index > 0 &&
+                                          filtedMsg[index].owner == filtedMsg[index - 1].owner &&
+                                          filtedMsg[index].messageType == "receiver"
+                                      ? 5
+                                      : 16),
+                                ),
+                                color: (filtedMsg[index].messageType == "receiver" ? Color(0xFF5A7059) : Color(0xFF182226)),
                               ),
-                              color: (filtedMsg[index].messageType == "receiver" ? Color(0xFF5A7059) : Color(0xFF182226)),
-                            ),
-                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                            child: Text(
-                              filtedMsg[index].messageContent,
-                              style: const TextStyle(fontSize: 15, color: Color(0xFFc9c9c9)),
+                              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                              child: Text(
+                                filtedMsg[index].messageContent,
+                                style: const TextStyle(fontSize: 15, color: Color(0xFFc9c9c9)),
+                              ),
                             ),
                           ),
                         ),
