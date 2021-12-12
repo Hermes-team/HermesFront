@@ -1,94 +1,42 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_users_model.dart';
+import 'package:front/models/res/server_res.dart';
+import 'package:front/services/globals.dart';
 import 'package:front/views/profile.dart';
 import 'package:front/widgets/conversation_list.dart';
 
 class ListOfChats extends StatefulWidget {
+  const ListOfChats({Key? key}) : super(key: key);
+
   @override
   _ListOfChatsState createState() => _ListOfChatsState();
 }
 
 class _ListOfChatsState extends State<ListOfChats> {
-  List<ChatUsers> chatUsers = [
-    ChatUsers(
-        name: "Liam",
-        messageText: "That's Great",
-        imageURL:
-        "assets/imgs/p1.png",
-        time: "Yesterday"),
-    ChatUsers(
-        name: "Olivia",
-        messageText: "bye",
-        imageURL:
-        "assets/imgs/p2.png",
-        time: "31 Mar"),
-    ChatUsers(
-        name: "Group",
-        messageText: "Kate: who are you?",
-        imageURL:
-        "assets/icons/group.png",
-        time: "29 Mar"),
-    ChatUsers(
-        name: "Ava",
-        messageText: "Busy! Call me in 20 mins",
-        imageURL:
-        "assets/imgs/p3.png",
-        time: "28 Mar"),
-    ChatUsers(
-        name: "Oscar",
-        messageText: "Thankyou, It's awesome",
-        imageURL:
-        "assets/imgs/p4.png",
-        time: "23 Mar"),
-    ChatUsers(
-        name: "Jack",
-        messageText: "will update you in evening",
-        imageURL:
-        "assets/imgs/p5.png",
-        time: "17 Mar"),
-    ChatUsers(
-        name: "Ivy",
-        messageText: "Can you please share the file?",
-        imageURL:
-        "assets/imgs/p6.png",
-        time: "24 Feb"),
-    ChatUsers(
-        name: "Group",
-        messageText: "Anna: papa",
-        imageURL:
-        "assets/icons/group.png",
-        time: "29 Mar"),
-    ChatUsers(
-        name: "Emma",
-        messageText: "How are you?",
-        imageURL:
-        "assets/imgs/p1.png",
-        time: "18 Feb"),
-    ChatUsers(
-        name: "Charlotte",
-        messageText: "will update you in evening",
-        imageURL:
-        "assets/imgs/p2.png",
-        time: "17 Mar"),
-    ChatUsers(
-        name: "Noah",
-        messageText: "Can you please share the file?",
-        imageURL:
-        "assets/imgs/p3.png",
-        time: "24 Feb"),
-    ChatUsers(
-        name: "Group",
-        messageText: "Ben: lololo lololo",
-        imageURL:
-        "assets/icons/group.png",
-        time: "19 Feb"),
-    ChatUsers(
-        name: "John",
-        messageText: "How are you?",
-        imageURL:
-        "assets/imgs/p4.png",
-        time: "18 Feb"),
-  ];
+  List<ChatUsers> chatUsers = [];
+
+  @override
+  void initState() {
+    log("ListOfChats loaded");
+    socket!.on('servers', (servers) {
+      log("No servers found!");
+      if (servers == null) return;
+
+      for (var server in servers) {
+        var parsedServer = ServerRes.fromJson(server);
+        chatUsers.add(ChatUsers(name: parsedServer.name!, messageText: parsedServer.lastMessage!, imageURL: "", time: ""));
+      }
+      setState(() {});
+    });
+
+    socket!.on('authenticated', (_) {
+      log("Authenticated. Retrieving server list");
+      socket?.emit('get servers');
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,38 +47,36 @@ class _ListOfChatsState extends State<ListOfChats> {
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF182226),
         title: Center(
-          child: Container(
-            child: Row(
-              children: <Widget>[
-                const Expanded(
-                  child: TextField(
-                    style: TextStyle(color: Color(0xFFc9c9c9)),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Search...",
-                      hintStyle: TextStyle(color: Color(0xFFc9c9c9)),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Color(0xff8D8D8D),
-                        size: 28,
-                      ),
+          child: Row(
+            children: <Widget>[
+              const Expanded(
+                child: TextField(
+                  style: TextStyle(color: Color(0xFFc9c9c9)),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Search...",
+                    hintStyle: TextStyle(color: Color(0xFFc9c9c9)),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Color(0xff8D8D8D),
+                      size: 28,
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return ProfilePage();
-                    }));
-                  },
-                  icon: const Icon(
-                    Icons.settings,
-                    color: Color(0xff8D8D8D),
-                    size: 30,
-                  ),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return ProfilePage();
+                  }));
+                },
+                icon: const Icon(
+                  Icons.settings,
+                  color: Color(0xff8D8D8D),
+                  size: 30,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
