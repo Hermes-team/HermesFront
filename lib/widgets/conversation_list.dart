@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/chat_detail_page.dart';
+import 'package:front/views/group_chat.dart';
+import 'package:front/views/private_chat.dart';
 
 class ConversationList extends StatefulWidget {
   String name;
   String messageText;
-  String imageUrl;
+  String img;
   String time;
   bool isMessageRead;
+  bool isGroup;
 
   ConversationList(
-      {required this.name,
-      required this.messageText,
-      required this.imageUrl,
-      required this.time,
-      required this.isMessageRead});
+      {required this.name, required this.messageText, required this.img, required this.time, required this.isMessageRead, required this.isGroup});
 
   @override
   _ConversationListState createState() => _ConversationListState();
@@ -24,20 +22,25 @@ class _ConversationListState extends State<ConversationList> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return ChatDetailPage();
-        }));
+        if (widget.isGroup==false) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return PrivateChatPage(name: widget.name, img: widget.img);
+          }));
+        } else {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return GroupChatPage(name: widget.name, img: widget.img);
+          }));
+        }
       },
       child: Container(
-        padding:
-            const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
         child: Row(
           children: <Widget>[
             Expanded(
               child: Row(
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundImage: NetworkImage(widget.imageUrl),
+                    backgroundImage: AssetImage(widget.img),
                     maxRadius: 30,
                   ),
                   const SizedBox(
@@ -51,8 +54,7 @@ class _ConversationListState extends State<ConversationList> {
                         children: <Widget>[
                           Text(
                             widget.name,
-                            style: const TextStyle(
-                                fontSize: 16, color: Color(0xffEBEBEB)),
+                            style: const TextStyle(fontSize: 16, color: Color(0xffEBEBEB)),
                           ),
                           const SizedBox(
                             height: 6,
@@ -62,9 +64,7 @@ class _ConversationListState extends State<ConversationList> {
                             style: TextStyle(
                                 fontSize: 13,
                                 color: const Color(0xff8d8d8d),
-                                fontWeight: widget.isMessageRead
-                                    ? FontWeight.bold
-                                    : FontWeight.normal),
+                                fontWeight: widget.isMessageRead ? FontWeight.bold : FontWeight.normal),
                           ),
                         ],
                       ),
@@ -77,9 +77,7 @@ class _ConversationListState extends State<ConversationList> {
               widget.time,
               style: TextStyle(
                   fontSize: 12,
-                  fontWeight: widget.isMessageRead
-                      ? FontWeight.bold
-                      : FontWeight.normal,
+                  fontWeight: widget.isMessageRead ? FontWeight.bold : FontWeight.normal,
                   color: const Color(0xff8d8d8d)),
             ),
           ],
