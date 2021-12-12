@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:front/models/req/login_model.dart';
-import 'package:front/models/res/login_model.dart';
+import 'package:front/models/req/login_req.dart';
+import 'package:front/models/res/login_res.dart';
 import 'package:front/models/storage/storage.dart';
 import 'package:front/services/auth_service.dart';
 import 'package:front/views/sign_up.dart';
@@ -32,17 +32,16 @@ class _SignInPageState extends State<SignInPage> {
       var res = await AuthService.login(getFormData());
       final parsed = LoginRes.fromJson(jsonDecode(res));
       if (parsed.success) {
-        await Storage.saveTokens(parsed.token!, parsed.selector!);
+        await Storage.saveUser(parsed);
         Navigator.pushReplacementNamed(context, '/home');
       } else {
         Fluttertoast.showToast(msg: parsed.msg!, gravity: ToastGravity.SNACKBAR);
         return;
       }
     } catch (error) {
-      Fluttertoast.showToast(msg: 'Server is down. Try again later.', gravity: ToastGravity.SNACKBAR);
+      Fluttertoast.showToast(msg: 'Server is down. Try again later.' + error.toString(), gravity: ToastGravity.SNACKBAR);
       return;
     }
-    Navigator.pushReplacementNamed(context, '/home');
   }
 
   void goToSignUp() {
