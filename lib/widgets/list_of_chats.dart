@@ -99,8 +99,8 @@ class _ListOfChatsState extends State<ListOfChats> {
                       messageText: chatUsers[index].messageText,
                       img: chatUsers[index].imageURL,
                       time: chatUsers[index].time,
-                      isMessageRead: (index == 0 || index == 3) ? true : false,
-                      isGroup: chatUsers[index].name == 'Group' ? true : false,
+                      isMessageRead: (index == 0 || index == 3),
+                      isGroup: chatUsers[index].name == 'Group',
                     );
                   },
                 ),

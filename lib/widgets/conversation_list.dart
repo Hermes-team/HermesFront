@@ -3,15 +3,22 @@ import 'package:front/views/group_chat.dart';
 import 'package:front/views/private_chat.dart';
 
 class ConversationList extends StatefulWidget {
-  String name;
-  String messageText;
-  String img;
-  String time;
-  bool isMessageRead;
-  bool isGroup;
+  final String name;
+  final String messageText;
+  final String img;
+  final String time;
+  final bool isMessageRead;
+  final bool isGroup;
 
-  ConversationList(
-      {required this.name, required this.messageText, required this.img, required this.time, required this.isMessageRead, required this.isGroup});
+  const ConversationList({
+    Key? key,
+    required this.name,
+    required this.messageText,
+    required this.img,
+    required this.time,
+    required this.isMessageRead,
+    required this.isGroup
+  }) : super(key: key);
 
   @override
   _ConversationListState createState() => _ConversationListState();
