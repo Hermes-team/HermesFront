@@ -117,9 +117,9 @@ class _ChatPageState extends State<ChatPage> {
                     return ConversationList(
                       name: chatUsers[index].name,
                       messageText: chatUsers[index].messageText,
-                      imageUrl: chatUsers[index].imageURL,
+                      img: chatUsers[index].imageURL,
                       time: chatUsers[index].time,
-                      isMessageRead: (index == 0 || index == 3) ? true : false,
+                      isMessageRead: (index == 0 || index == 3) ? true : false, isGroup: false,
                     );
                   },
                 ),

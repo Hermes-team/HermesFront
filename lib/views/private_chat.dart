@@ -16,28 +16,28 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
   // late String img = "assets/imgs/p5.png";
 
   List<ChatMessage> messages = [
-    ChatMessage(messageContent: "last sms", messageType: "sender"),
-    ChatMessage(messageContent: "aaa aaa aaa", messageType: "receiver"),
-    ChatMessage(messageContent: "bbbb", messageType: "receiver"),
-    ChatMessage(messageContent: "ababababab abababab abababb ababbb abababab abababa ababbab ab", messageType: "sender"),
-    ChatMessage(messageContent: "aba", messageType: "receiver"),
-    ChatMessage(messageContent: "aaa aaa aaa", messageType: "sender"),
-    ChatMessage(messageContent: "bbbb", messageType: "sender"),
-    ChatMessage(messageContent: "ababababab abababab abababb ababbb abababab abababa ababbab ab", messageType: "receiver"),
-    ChatMessage(messageContent: "aba", messageType: "sender"),
-    ChatMessage(messageContent: "aaa aaa aaa", messageType: "receiver"),
-    ChatMessage(messageContent: "bbbb", messageType: "receiver"),
+    ChatMessage(messageContent: "last sms", messageType: "sender", uuid: ''),
+    ChatMessage(messageContent: "aaa aaa aaa", messageType: "receiver", uuid: ''),
+    ChatMessage(messageContent: "bbbb", messageType: "receiver", uuid: ''),
+    ChatMessage(messageContent: "ababababab abababab abababb ababbb abababab abababa ababbab ab", messageType: "sender", uuid: ''),
+    ChatMessage(messageContent: "aba", messageType: "receiver", uuid: ''),
+    ChatMessage(messageContent: "aaa aaa aaa", messageType: "sender", uuid: ''),
+    ChatMessage(messageContent: "bbbb", messageType: "sender", uuid: ''),
+    ChatMessage(messageContent: "ababababab abababab abababb ababbb abababab abababa ababbab ab", messageType: "receiver", uuid: ''),
+    ChatMessage(messageContent: "aba", messageType: "sender", uuid: ''),
+    ChatMessage(messageContent: "aaa aaa aaa", messageType: "receiver", uuid: ''),
+    ChatMessage(messageContent: "bbbb", messageType: "receiver", uuid: ''),
     ChatMessage(
         messageContent:
             "a bbbb bbbb bbbb bbbb bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbb bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbbb bbbb bbbb",
-        messageType: "sender"),
-    ChatMessage(messageContent: "aba", messageType: "receiver"),
-    ChatMessage(messageContent: "aaa aaa aaa", messageType: "sender"),
-    ChatMessage(messageContent: "bbbb", messageType: "sender"),
+        messageType: "sender", uuid: ''),
+    ChatMessage(messageContent: "aba", messageType: "receiver", uuid: ''),
+    ChatMessage(messageContent: "aaa aaa aaa", messageType: "sender", uuid: ''),
+    ChatMessage(messageContent: "bbbb", messageType: "sender", uuid: ''),
     ChatMessage(
         messageContent: "a bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbbb bbbb bbbb  bbbb bbbb  bbbb bbbb ",
-        messageType: "receiver"),
-    ChatMessage(messageContent: "first sms", messageType: "sender"),
+        messageType: "receiver", uuid: ''),
+    ChatMessage(messageContent: "first sms", messageType: "sender", uuid: ''),
   ];
 
   //final _msgTxtController = TextEditingController();
@@ -408,7 +408,7 @@ class _GetMediaWidgetState extends State<GetMediaWidget> {
               const SizedBox(height: 10),
             ],
           )
-              : Center(
+              : const Center(
               child: IconButton(
                 icon: Icon(
                   Icons.play_arrow,
