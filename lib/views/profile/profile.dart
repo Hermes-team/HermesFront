@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/models/storage/storage.dart';
+import 'package:front/services/globals.dart';
 import 'package:front/views/profile/add_contact.dart';
 import 'package:front/views/profile/contacts.dart';
 import 'package:front/views/profile/invite_friend.dart';
@@ -20,6 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void logout() {
     Storage.removeTokens();
+    socket?.disconnect();
     Navigator.pushReplacementNamed(context, "/signIn");
   }
 
