@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:front/models/storage/storage.dart';
-import 'package:front/views/home.dart';
-import 'package:front/views/sign_in.dart';
-import 'package:front/views/sign_up.dart';
+import 'package:front/views/home/home.dart';
+import 'package:front/views/login/sign_in.dart';
+import 'package:front/views/login/sign_up.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

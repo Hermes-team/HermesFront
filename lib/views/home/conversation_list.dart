@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/group_chat.dart';
-import 'package:front/views/private_chat.dart';
+import 'package:front/views/chat/group_chat.dart';
+import 'package:front/views/chat/private_chat.dart';
 
 class ConversationList extends StatefulWidget {
   final String name;
@@ -29,16 +29,17 @@ class _ConversationListState extends State<ConversationList> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (widget.isGroup==false) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return PrivateChatPage(name: widget.name, img: widget.img);
-          }));
-        } else {
+        if (widget.isGroup) {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return GroupChatPage(name: widget.name, img: widget.img);
           }));
+        } else {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return PrivateChatPage(name: widget.name, img: widget.img);
+          }));
         }
       },
+
       child: Container(
         padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
         child: Row(

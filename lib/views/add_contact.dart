@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/private_chat.dart';
+import 'package:front/views/chat/private_chat.dart';
 
 class AddContactPage extends StatefulWidget {
+  const AddContactPage({Key? key}) : super(key: key);
+
   @override
   _AddContactPageState createState() => _AddContactPageState();
 }
@@ -33,7 +35,7 @@ class _AddContactPageState extends State<AddContactPage> {
             key: _formKey,
             child: Column(
               children: [
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Center(
                   child: Image.asset(
                     "assets/icons/user.png",
@@ -46,8 +48,8 @@ class _AddContactPageState extends State<AddContactPage> {
                     children: [
                       TextFormField(
                         controller: nameController,
-                        style: TextStyle(color: Color(0xFFc9c9c9)),
-                        decoration: InputDecoration(hintText: "Name"),
+                        style: const TextStyle(color: Color(0xFFc9c9c9)),
+                        decoration: const InputDecoration(hintText: "Name"),
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter a name';
@@ -55,10 +57,10 @@ class _AddContactPageState extends State<AddContactPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       TextFormField(
-                        style: TextStyle(color: Color(0xFFc9c9c9)),
-                        decoration: InputDecoration(hintText: "Tag"),
+                        style: const TextStyle(color: Color(0xFFc9c9c9)),
+                        decoration: const InputDecoration(hintText: "Tag"),
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter a tag';
@@ -73,8 +75,6 @@ class _AddContactPageState extends State<AddContactPage> {
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        print("here");
-                        print(nameController.text);
                         return PrivateChatPage(name: nameController.text, img: 'assets/icons/user.png');
                       }));
                     }
@@ -83,7 +83,7 @@ class _AddContactPageState extends State<AddContactPage> {
                     margin: const EdgeInsets.only(bottom: 10.0, top: 20.0),
                     padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
                     decoration: BoxDecoration(
-                      color: Color(0xFF789677),
+                      color: const Color(0xFF789677),
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     child: const Text(

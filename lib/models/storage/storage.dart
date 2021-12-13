@@ -20,7 +20,7 @@ class Storage {
 
   static Future<bool> hasToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.containsKey("token");
+    return prefs.containsKey("token") && prefs.containsKey("uniqid");
   }
 
   static Future<SocketAuthReq> getTokens() async {

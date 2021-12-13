@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/private_chat.dart';
+import 'package:front/views/chat/private_chat.dart';
 
 class ContactsPage extends StatefulWidget {
+  const ContactsPage({Key? key}) : super(key: key);
+
   @override
   _ContactsState createState() => _ContactsState();
 }
@@ -44,7 +46,7 @@ class _ContactsState extends State<ContactsPage> {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: const TextField(
                 style: TextStyle(color: Color(0xFFc9c9c9)),
                 decoration: InputDecoration(
@@ -64,7 +66,7 @@ class _ContactsState extends State<ContactsPage> {
                 itemCount: contacts.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+                    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 3),
                     child: ListTile(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -73,9 +75,9 @@ class _ContactsState extends State<ContactsPage> {
                       },
                       title: Text(
                         "${contacts[index]["name"]}",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                        style: const TextStyle(fontSize: 16, color: Colors.white),
                       ),
-                      contentPadding: EdgeInsets.all(4),
+                      contentPadding: const EdgeInsets.all(4),
                       leading: CircleAvatar(
                         maxRadius: 32.0,
                         child: Image.asset(

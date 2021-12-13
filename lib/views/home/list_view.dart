@@ -5,7 +5,7 @@ import 'package:front/models/chat_users_model.dart';
 import 'package:front/models/res/server_res.dart';
 import 'package:front/services/globals.dart';
 import 'package:front/views/profile.dart';
-import 'package:front/widgets/conversation_list.dart';
+import 'package:front/views/home/conversation_list.dart';
 
 class ListOfChats extends StatefulWidget {
   const ListOfChats({Key? key}) : super(key: key);
@@ -19,14 +19,15 @@ class _ListOfChatsState extends State<ListOfChats> {
 
   @override
   void initState() {
-    log("ListOfChats loaded");
     socket!.on('servers', (servers) {
-      log("No servers found!");
-      if (servers == null) return;
+      if (servers == null) {
+        log("No servers found!");
+        return;
+      }
 
       for (var server in servers) {
         var parsedServer = ServerRes.fromJson(server);
-        chatUsers.add(ChatUsers(name: parsedServer.name!, messageText: parsedServer.lastMessage!, imageURL: "", time: ""));
+        chatUsers.add(ChatUsers(name: parsedServer.name!, messageText: parsedServer.lastMessage!, imageURL: "assets/imgs/p4.png", time: ""));
       }
       setState(() {});
     });
@@ -67,7 +68,7 @@ class _ListOfChatsState extends State<ListOfChats> {
               IconButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ProfilePage();
+                    return const ProfilePage();
                   }));
                 },
                 icon: const Icon(

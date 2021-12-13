@@ -6,7 +6,7 @@ import 'package:front/services/globals.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 import 'package:socket_io_client/socket_io_client.dart';
 
-import '../widgets/list_of_chats.dart';
+import 'list_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -82,7 +82,9 @@ class _HomePageState extends State<HomePage> {
       Navigator.pushReplacementNamed(context, '/signIn');
     });
 
-    Storage.getUniqid().then((value) => userUniqid = value);
+    Storage.getUniqid().then((value) {
+      userUniqid = value;
+    });
     super.initState();
   }
 
