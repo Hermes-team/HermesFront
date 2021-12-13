@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:front/views/new_group_2.dart';
 
 class NewGroupPage extends StatefulWidget {
+  const NewGroupPage({Key? key}) : super(key: key);
+
   @override
   _NewGroupPageState createState() => _NewGroupPageState();
 }
@@ -46,7 +48,7 @@ class _NewGroupPageState extends State<NewGroupPage> {
             Column(
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: const TextField(
                     style: TextStyle(color: Color(0xFFc9c9c9)),
                     decoration: InputDecoration(
@@ -83,14 +85,14 @@ class _NewGroupPageState extends State<NewGroupPage> {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return NewGroup2Page();
+                          return const NewGroup2Page();
                         }));
                       },
                       child: Container(
                         margin: const EdgeInsets.only(bottom: 10.0),
                         padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
                         decoration: BoxDecoration(
-                          color: Color(0xFF789677),
+                          color: const Color(0xFF789677),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: const Text(
@@ -111,9 +113,7 @@ class _NewGroupPageState extends State<NewGroupPage> {
 }
 
 class Contact extends StatelessWidget {
-  const Contact({
-    required this.contact,
-  }) : super();
+  const Contact({Key? key, required this.contact}) : super(key: key);
 
   final Map<String, dynamic> contact;
 
@@ -127,13 +127,13 @@ class Contact extends StatelessWidget {
           checked = !checked ? true : false;
         }),
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 3),
           child: ListTile(
             title: Text(
               "${contact["name"]}",
-              style: TextStyle(fontSize: 16, color: Colors.white),
+              style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
-            contentPadding: EdgeInsets.all(4),
+            contentPadding: const EdgeInsets.all(4),
             leading: CircleAvatar(
               maxRadius: 32.0,
               child: Image.asset(
@@ -141,7 +141,7 @@ class Contact extends StatelessWidget {
               ),
             ),
             trailing: Container(
-              margin: EdgeInsets.only(right: 12.0),
+              margin: const EdgeInsets.only(right: 12.0),
               width: 30,
               height: 30,
               decoration: checked

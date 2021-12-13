@@ -41,7 +41,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     socket!.on('channel messages', (data){
       var bulk = BulkMessageRes.fromJson(data);
       for (var message in bulk.messages!) {
-        print(message);
         var parsedMessage = MessageRes.fromJson(message);
         addMsgFromServer(parsedMessage);
       }

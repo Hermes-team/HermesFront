@@ -6,6 +6,8 @@ import 'package:front/views/new_group.dart';
 import 'package:front/views/new_message.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }

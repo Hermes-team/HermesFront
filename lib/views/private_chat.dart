@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:front/models/chat_message_model.dart';
 
 class PrivateChatPage extends StatefulWidget {
-  String name;
-  String img;
+  final String name;
+  final String img;
 
-  PrivateChatPage({required this.name, required this.img});
+  const PrivateChatPage({Key? key, required this.name, required this.img}) : super(key: key);
 
   @override
   _PrivateChatPageState createState() => _PrivateChatPageState();
@@ -47,10 +47,9 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
 
   RelativeRect buttonMenuPosition(BuildContext context) {
     final RenderBox bar = context.findRenderObject() as RenderBox;
-    final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
     Offset offset = Offset.zero;
     final RelativeRect position =
-        RelativeRect.fromRect(Rect.fromPoints(bar.size.bottomRight(offset)  , bar.size.bottomRight(offset) + Offset(40, 10)), Rect.zero);
+        RelativeRect.fromRect(Rect.fromPoints(bar.size.bottomRight(offset)  , bar.size.bottomRight(offset) + const Offset(40, 10)), Rect.zero);
 
     return position;
   }
@@ -112,7 +111,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                     ),
                   ),
                   color: const Color(0xff213339),
-                  padding: EdgeInsets.all(0),
+                  padding: const EdgeInsets.all(0),
                   onSelected: (value) {
                     print(value);
                   },
@@ -185,7 +184,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                 reverse: true,
                 itemCount: messages.length,
                 shrinkWrap: true,
-                padding: EdgeInsets.only(top: 7, bottom: 7),
+                padding: const EdgeInsets.only(top: 7, bottom: 7),
                 // physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return Container(
@@ -199,12 +198,12 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(16),
-                            topRight: Radius.circular(16),
+                            topLeft: const Radius.circular(16),
+                            topRight: const Radius.circular(16),
                             bottomLeft: Radius.circular(messages[index].messageType == "receiver" ? 0 : 12),
                             bottomRight: Radius.circular(messages[index].messageType == "receiver" ? 12 : 0),
                           ),
-                          color: (messages[index].messageType != "receiver" ? Color(0xFF5A7059) : Color(0xFF182226)),
+                          color: (messages[index].messageType != "receiver" ? const Color(0xFF5A7059) : const Color(0xFF182226)),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                         child: Text(
@@ -332,7 +331,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                         );
                       },
                       child: const CircleAvatar(
-                        backgroundColor: const Color(0xFF5A7059),
+                        backgroundColor: Color(0xFF5A7059),
                         child: Icon(
                           Icons.send,
                           color: Color(0xFF182226),
@@ -388,7 +387,7 @@ class _GetMediaWidgetState extends State<GetMediaWidget> {
                   blurRadius: 5.0,
                   spreadRadius: 8.0,
                   color: Colors.black.withOpacity(0.1),
-                  offset: Offset(0.0, 2.0),
+                  offset: const Offset(0.0, 2.0),
                 ),
               ],
               color: Colors.blue),

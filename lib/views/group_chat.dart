@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:front/models/group_chat_message_model.dart';
 
 class GroupChatPage extends StatefulWidget {
-  String name;
-  String img;
+  final String name;
+  final String img;
 
-  GroupChatPage({required this.name, required this.img});
+  const GroupChatPage({Key? key, required this.name, required this.img}) : super(key: key);
 
   @override
   _GroupChatPageState createState() => _GroupChatPageState();

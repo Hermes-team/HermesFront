@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'group_chat.dart';
 
 class NewGroup2Page extends StatefulWidget {
+  const NewGroup2Page({Key? key}) : super(key: key);
+
   @override
   _NewGroup2PageState createState() => _NewGroup2PageState();
 }
