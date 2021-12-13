@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_message_model.dart';
@@ -22,32 +21,48 @@ class PrivateChatPage extends StatefulWidget {
 class _PrivateChatPageState extends State<PrivateChatPage> {
 
   final TextEditingController _msgController = TextEditingController();
+  final _scrollController = ScrollController();
   final LinkedHashSet<ChatMessage> _messages = LinkedHashSet<ChatMessage>();
+  // ignore: prefer_typing_uninitialized_variables
   late var msgListener;
 
   addMsgFromServer(MessageRes messagePayload) {
-    log("Got message: " + messagePayload.message!);
-    log("Mesage payload" + messagePayload.message!);
-    log("Mesage uniq" + userUniqid!);
-
     if (messagePayload.userID == userUniqid) {
-      _messages.firstWhere((element) => element.messageContent == messagePayload.message && element.uuid == "").uuid = messagePayload.uuid!;
+      var mess = _messages.firstWhere((element) => element.messageContent == messagePayload.message && element.uuid == "", orElse: () => ChatMessage(messageContent: "", messageType: "", uuid: ""));
+      if (mess.messageType == "") {
+        return;
+      }
+      mess.uuid = messagePayload.uuid!;
     } else {
-      var chatMsg = ChatMessage(messageContent: messagePayload.message!, messageType: "receiver", uuid: "");
+      var chatMsg = ChatMessage(messageContent: messagePayload.message!, messageType: "receiver", uuid: messagePayload.uuid!);
       _messages.add(chatMsg);
     }
+    if (mounted) {
+      setState(() {});
+      scrollDown();
+    }
+  }
 
-    setState(() {});
+  loadOldMessage(MessageRes messagePayload) {
+    var messageType = messagePayload.userID == userUniqid ? "sender" : "receiver";
+    var chatMsg = ChatMessage(messageContent: messagePayload.message!, messageType: messageType, uuid: messagePayload.uuid!);
+    _messages.add(chatMsg);
+    if (mounted) {
+      setState(() {});
+      scrollDown();
+    }
   }
 
   sendMsg() {
     var msgData = MessageReq(msg: _msgController.text);
     var chatMsg = ChatMessage(messageContent: msgData.msg, messageType: "sender", uuid: "");
     _messages.add(chatMsg);
-    log("Sending message to server: " + msgData.msg);
     socket?.emit('message', msgData);
     _msgController.clear();
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+      scrollDown();
+    }
   }
 
   @override
@@ -63,7 +78,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       var bulk = BulkMessageRes.fromJson(data);
       for (var message in bulk.messages!) {
         var parsedMessage = MessageRes.fromJson(message);
-        addMsgFromServer(parsedMessage);
+        loadOldMessage(parsedMessage);
       }
     });
 
@@ -73,8 +88,16 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
 
   @override
   void dispose() {
-    socket!.off("message", msgListener);
+    // socket!.off("message", msgListener);
     super.dispose();
+  }
+
+  scrollDown() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   bool isExpanded = false;
@@ -150,9 +173,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                   ),
                   color: const Color(0xff213339),
                   padding: const EdgeInsets.all(0),
-                  onSelected: (value) {
-                    print(value);
-                  },
+                  onSelected: null,
                   itemBuilder: (BuildContext context) {
                     return [
                       PopupMenuItem(
@@ -219,13 +240,12 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
           children: [
             Expanded(
               child: ListView.builder(
-                // reverse: true,
+                controller: _scrollController,
                 itemCount: _messages.length,
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(top: 7, bottom: 7),
                 itemBuilder: (context, index) {
                   var msg = _messages.elementAt(index);
-                  log(msg.messageContent);
                   var receiver = isReceiver(msg.messageType);
                   return Container(
                     padding: EdgeInsets.only(
@@ -425,7 +445,9 @@ class _GetMediaWidgetState extends State<GetMediaWidget> {
       child: GestureDetector(
         onTap: () {
           isExpanded = !isExpanded;
-          setState(() {});
+          if (mounted) {
+            setState(() {});
+          }
         },
         child: Container(
           decoration: BoxDecoration(

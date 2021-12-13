@@ -43,13 +43,13 @@ class _NewGroup2PageState extends State<NewGroup2Page> {
               key: _formKey,
               child: Column(
                 children: [
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 20, right: 20, bottom: 10, left: 30),
+                        margin: const EdgeInsets.only(top: 20, right: 20, bottom: 10, left: 30),
                         width: 100,
                         height: 100,
                         decoration: const BoxDecoration(
@@ -59,7 +59,7 @@ class _NewGroup2PageState extends State<NewGroup2Page> {
                           ),
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: 210,
                         child: TextFormField(
                           controller: nameController,
@@ -67,7 +67,7 @@ class _NewGroup2PageState extends State<NewGroup2Page> {
                               hintText: "Enter group name",
                               hintStyle: TextStyle(color: Colors.white),
                               enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))),
-                          style: TextStyle(fontSize: 14, color: Colors.white),
+                          style: const TextStyle(fontSize: 14, color: Colors.white),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter a name';
@@ -79,8 +79,8 @@ class _NewGroup2PageState extends State<NewGroup2Page> {
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 12.0),
-                    padding: EdgeInsets.symmetric(horizontal: 24.0),
+                    margin: const EdgeInsets.symmetric(vertical: 12.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     decoration: const BoxDecoration(
                       color: Color(0xFF182226),
                     ),
@@ -104,13 +104,13 @@ class _NewGroup2PageState extends State<NewGroup2Page> {
                       itemCount: contacts.length,
                       itemBuilder: (context, index) {
                         return Container(
-                          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+                          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 3),
                           child: ListTile(
                             title: Text(
                               "${contacts[index]["name"]}",
-                              style: TextStyle(fontSize: 16, color: Colors.white),
+                              style: const TextStyle(fontSize: 16, color: Colors.white),
                             ),
-                            contentPadding: EdgeInsets.all(4),
+                            contentPadding: const EdgeInsets.all(4),
                             leading: CircleAvatar(
                               maxRadius: 32.0,
                               child: Image.asset(
@@ -147,7 +147,7 @@ class _NewGroup2PageState extends State<NewGroup2Page> {
                         margin: const EdgeInsets.only(bottom: 10.0),
                         padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
                         decoration: BoxDecoration(
-                          color: Color(0xFF789677),
+                          color: const Color(0xFF789677),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: const Text(
