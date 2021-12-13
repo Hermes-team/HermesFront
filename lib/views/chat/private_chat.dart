@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_message_model.dart';
@@ -38,6 +39,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       _messages.add(chatMsg);
     }
     if (mounted) {
+      log("mounted in add server");
       setState(() {});
       scrollDown();
     }
@@ -94,7 +96,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
 
   scrollDown() {
     _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
+      _scrollController.position.maxScrollExtent * 1.025,
       duration: const Duration(milliseconds: 300),
       curve: Curves.fastOutSlowIn,
     );
