@@ -60,7 +60,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
 
     Offset offset = Offset.zero;
     final RelativeRect position = RelativeRect.fromRect(
-        Rect.fromPoints(bar.size.bottomRight(offset), bar.size.bottomRight(offset) + Offset(40, 10)), Rect.zero);
+        Rect.fromPoints(bar.size.bottomRight(offset), bar.size.bottomRight(offset) + const Offset(40, 10)), Rect.zero);
 
     return position;
   }
@@ -68,14 +68,15 @@ class _GroupChatPageState extends State<GroupChatPage> {
   List<GroupChatMessage> filterUsers(List<GroupChatMessage> list) {
     list.asMap().forEach((index, msg) {
       if (msg.messageType == "receiver") return;
-      if (index == 0 && list.length > 1 && msg.owner == list[index + 1].owner)
+      if (index == 0 && list.length > 1 && msg.owner == list[index + 1].owner) {
         return;
-      else if (index < list.length && msg.owner == list[index - 1].owner)
+      } else if (index < list.length && msg.owner == list[index - 1].owner) {
         msg.viewImg = false;
-      else if (index == list.length && msg.owner != list[index - 1].owner)
+      } else if (index == list.length && msg.owner != list[index - 1].owner) {
         msg.viewImg = false;
-      else
+      } else {
         return;
+      }
     });
 
     return list;
@@ -139,10 +140,8 @@ class _GroupChatPageState extends State<GroupChatPage> {
                     ),
                   ),
                   color: const Color(0xff213339),
-                  padding: EdgeInsets.all(0),
-                  onSelected: (value) {
-                    print(value);
-                  },
+                  padding: const EdgeInsets.all(0),
+                  onSelected: null,
                   itemBuilder: (BuildContext context) {
                     return [
                       PopupMenuItem(
@@ -212,7 +211,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                 reverse: true,
                 itemCount: messages.length,
                 shrinkWrap: true,
-                padding: EdgeInsets.only(top: 7, bottom: 7),
+                padding: const EdgeInsets.only(top: 7, bottom: 7),
                 // physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return Row(
@@ -221,20 +220,20 @@ class _GroupChatPageState extends State<GroupChatPage> {
                     children: [
                       (filtedMsg[index].messageType == "sender" && filtedMsg[index].viewImg)
                           ? Container(
-                              margin: EdgeInsets.symmetric(horizontal: 9.0),
+                              margin: const EdgeInsets.symmetric(horizontal: 9.0),
                               child: CircleAvatar(
                                 child: Image.asset(filtedMsg[index].imgs),
                               ),
                             )
                           : Container(
-                              margin: EdgeInsets.symmetric(horizontal: 14.0),
+                              margin: const EdgeInsets.symmetric(horizontal: 14.0),
                               child: const SizedBox(
                                 width: 30,
                               ),
                             ),
                       Flexible(
                         child: Container(
-                          padding: EdgeInsets.only(right: 15, top: 3, bottom: 3),
+                          padding: const EdgeInsets.only(right: 15, top: 3, bottom: 3),
                           child: Align(
                             alignment: (filtedMsg[index].messageType == "receiver" ? Alignment.topRight : Alignment.topLeft),
                             child: Container(
@@ -261,7 +260,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                       ? 5
                                       : 16),
                                 ),
-                                color: (filtedMsg[index].messageType == "receiver" ? Color(0xFF5A7059) : Color(0xFF182226)),
+                                color: (filtedMsg[index].messageType == "receiver" ? const Color(0xFF5A7059) : const Color(0xFF182226)),
                               ),
                               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                               child: Text(
@@ -392,7 +391,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                         );
                       },
                       child: const CircleAvatar(
-                        backgroundColor: const Color(0xFF5A7059),
+                        backgroundColor: Color(0xFF5A7059),
                         child: Icon(
                           Icons.send,
                           color: Color(0xFF182226),
@@ -445,7 +444,7 @@ class _GetMediaWidgetState extends State<GetMediaWidget> {
                   blurRadius: 5.0,
                   spreadRadius: 8.0,
                   color: Colors.black.withOpacity(0.1),
-                  offset: Offset(0.0, 2.0),
+                  offset: const Offset(0.0, 2.0),
                 ),
               ],
               color: Colors.blue),
@@ -464,7 +463,7 @@ class _GetMediaWidgetState extends State<GetMediaWidget> {
                     const SizedBox(height: 10),
                   ],
                 )
-              : Center(
+              : const Center(
                   child: IconButton(
                   icon: Icon(
                     Icons.play_arrow,
