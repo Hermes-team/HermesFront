@@ -82,10 +82,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       for (var message in bulk.messages!) {
         var parsedMessage = MessageRes.fromJson(message);
         loadOldMessage(parsedMessage);
-        Timer(
-          const Duration(milliseconds: 50),
-          () => scrollDown()
-        );
+        scrollDown();
       }
     });
 
@@ -94,11 +91,14 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
   }
 
   scrollDown() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent * 1.02,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOutExpo,
-    );
+    Timer(
+        const Duration(milliseconds: 50), () {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOutExpo,
+      );
+    });
   }
 
   bool isExpanded = false;
@@ -294,10 +294,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                     Expanded(
                       child: TextField(
                         onTap: () {
-                          Timer(
-                              const Duration(milliseconds: 50),
-                                  () => scrollDown()
-                          );
+                          scrollDown();
                         },
                         controller: _msgController,
                         style: const TextStyle(color: Color(0xFFc9c9c9)),
