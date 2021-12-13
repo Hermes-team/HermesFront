@@ -19,10 +19,11 @@ class _ListOfChatsState extends State<ListOfChats> {
 
   @override
   void initState() {
-    log("ListOfChats loaded");
     socket!.on('servers', (servers) {
-      log("No servers found!");
-      if (servers == null) return;
+      if (servers == null) {
+        log("No servers found!");
+        return;
+      }
 
       for (var server in servers) {
         var parsedServer = ServerRes.fromJson(server);
