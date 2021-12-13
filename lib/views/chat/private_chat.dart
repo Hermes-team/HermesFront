@@ -1,5 +1,13 @@
+import 'dart:collection';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_message_model.dart';
+import 'package:front/models/req/channel_req.dart';
+import 'package:front/models/req/message_req.dart';
+import 'package:front/models/res/bulk_message_res.dart';
+import 'package:front/models/res/message_res.dart';
+import 'package:front/services/globals.dart';
 
 class PrivateChatPage extends StatefulWidget {
   final String name;
@@ -12,37 +20,63 @@ class PrivateChatPage extends StatefulWidget {
 }
 
 class _PrivateChatPageState extends State<PrivateChatPage> {
-  // late String name = "Kriss";
-  // late String img = "assets/imgs/p5.png";
 
-  List<ChatMessage> messages = [
-    ChatMessage(messageContent: "last sms", messageType: "sender", uuid: ''),
-    ChatMessage(messageContent: "aaa aaa aaa", messageType: "receiver", uuid: ''),
-    ChatMessage(messageContent: "bbbb", messageType: "receiver", uuid: ''),
-    ChatMessage(messageContent: "ababababab abababab abababb ababbb abababab abababa ababbab ab", messageType: "sender", uuid: ''),
-    ChatMessage(messageContent: "aba", messageType: "receiver", uuid: ''),
-    ChatMessage(messageContent: "aaa aaa aaa", messageType: "sender", uuid: ''),
-    ChatMessage(messageContent: "bbbb", messageType: "sender", uuid: ''),
-    ChatMessage(messageContent: "ababababab abababab abababb ababbb abababab abababa ababbab ab", messageType: "receiver", uuid: ''),
-    ChatMessage(messageContent: "aba", messageType: "sender", uuid: ''),
-    ChatMessage(messageContent: "aaa aaa aaa", messageType: "receiver", uuid: ''),
-    ChatMessage(messageContent: "bbbb", messageType: "receiver", uuid: ''),
-    ChatMessage(
-        messageContent:
-            "a bbbb bbbb bbbb bbbb bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbb bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbbb bbbb bbbb",
-        messageType: "sender", uuid: ''),
-    ChatMessage(messageContent: "aba", messageType: "receiver", uuid: ''),
-    ChatMessage(messageContent: "aaa aaa aaa", messageType: "sender", uuid: ''),
-    ChatMessage(messageContent: "bbbb", messageType: "sender", uuid: ''),
-    ChatMessage(
-        messageContent: "a bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbbb bbbb bbbb  bbbb bbbb bbbb bbbb bbbb  bbbb bbbb  bbbb bbbb ",
-        messageType: "receiver", uuid: ''),
-    ChatMessage(messageContent: "first sms", messageType: "sender", uuid: ''),
-  ];
+  final TextEditingController _msgController = TextEditingController();
+  final LinkedHashSet<ChatMessage> _messages = LinkedHashSet<ChatMessage>();
+  late var msgListener;
 
-  //final _msgTxtController = TextEditingController();
+  addMsgFromServer(MessageRes messagePayload) {
+    log("Got message: " + messagePayload.message!);
+    log("Mesage payload" + messagePayload.message!);
+    log("Mesage uniq" + userUniqid!);
 
-  //final _formKey = GlobalKey<FormState>();
+    if (messagePayload.userID == userUniqid) {
+      _messages.firstWhere((element) => element.messageContent == messagePayload.message && element.uuid == "").uuid = messagePayload.uuid!;
+    } else {
+      var chatMsg = ChatMessage(messageContent: messagePayload.message!, messageType: "receiver", uuid: "");
+      _messages.add(chatMsg);
+    }
+
+    setState(() {});
+  }
+
+  sendMsg() {
+    var msgData = MessageReq(msg: _msgController.text);
+    var chatMsg = ChatMessage(messageContent: msgData.msg, messageType: "sender", uuid: "");
+    _messages.add(chatMsg);
+    log("Sending message to server: " + msgData.msg);
+    socket?.emit('message', msgData);
+    _msgController.clear();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    msgListener = addMsgFromServer;
+
+    socket!.on("message", (data) {
+      var parsedMessage = MessageRes.fromJson(data);
+      addMsgFromServer(parsedMessage);
+    });
+
+    socket!.on('channel messages', (data) {
+      var bulk = BulkMessageRes.fromJson(data);
+      for (var message in bulk.messages!) {
+        var parsedMessage = MessageRes.fromJson(message);
+        addMsgFromServer(parsedMessage);
+      }
+    });
+
+    socket!.emit('get messages', ChannelReq(channel: "GENERAL_CHANNEL", server: "GENERAL_SERVER"));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    socket!.off("message", msgListener);
+    super.dispose();
+  }
+
   bool isExpanded = false;
 
   RelativeRect buttonMenuPosition(BuildContext context) {
@@ -52,6 +86,10 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
         RelativeRect.fromRect(Rect.fromPoints(bar.size.bottomRight(offset)  , bar.size.bottomRight(offset) + const Offset(40, 10)), Rect.zero);
 
     return position;
+  }
+
+  bool isReceiver(String type) {
+    return type == "receiver";
   }
 
   @override
@@ -181,33 +219,36 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
           children: [
             Expanded(
               child: ListView.builder(
-                reverse: true,
-                itemCount: messages.length,
+                // reverse: true,
+                itemCount: _messages.length,
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(top: 7, bottom: 7),
-                // physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
+                  var msg = _messages.elementAt(index);
+                  log(msg.messageContent);
+                  var receiver = isReceiver(msg.messageType);
                   return Container(
                     padding: EdgeInsets.only(
-                        left: messages[index].messageType == "receiver" ? 15 : 45,
-                        right: messages[index].messageType == "receiver" ? 45 : 15,
+                        left: receiver ? 15 : 45,
+                        right: receiver ? 45 : 15,
                         top: 3,
-                        bottom: 3),
+                        bottom: 3
+                    ),
                     child: Align(
-                      alignment: (messages[index].messageType == "receiver" ? Alignment.topLeft : Alignment.topRight),
+                      alignment: (receiver ? Alignment.topLeft : Alignment.topRight),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: const Radius.circular(16),
                             topRight: const Radius.circular(16),
-                            bottomLeft: Radius.circular(messages[index].messageType == "receiver" ? 0 : 12),
-                            bottomRight: Radius.circular(messages[index].messageType == "receiver" ? 12 : 0),
+                            bottomLeft: Radius.circular(receiver ? 0 : 12),
+                            bottomRight: Radius.circular(receiver ? 12 : 0),
                           ),
-                          color: (messages[index].messageType != "receiver" ? const Color(0xFF5A7059) : const Color(0xFF182226)),
+                          color: (receiver ? const Color(0xFF182226) : msg.uuid == "" ? const Color(0x40294a2d) : const Color(0xFF5A7059)),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                         child: Text(
-                          messages[index].messageContent,
+                          msg.messageContent,
                           style: const TextStyle(fontSize: 15, color: Color(0xFFc9c9c9)),
                         ),
                       ),
@@ -228,10 +269,11 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                     const SizedBox(
                       width: 15,
                     ),
-                    const Expanded(
+                    Expanded(
                       child: TextField(
-                        style: TextStyle(color: Color(0xFFc9c9c9)),
-                        decoration: InputDecoration(
+                        controller: _msgController,
+                        style: const TextStyle(color: Color(0xFFc9c9c9)),
+                        decoration: const InputDecoration(
                             hintText: "Message...", hintStyle: TextStyle(color: Color(0xFFc9c9c9)), border: InputBorder.none),
                       ),
                     ),
@@ -239,7 +281,9 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                       width: 15,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        sendMsg();
+                      },
                       onLongPress: () {
                         final RelativeRect position = buttonMenuPosition(context);
                         showMenu(
@@ -351,8 +395,6 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
   }
 }
 
-
-
 class GetMediaWidget extends StatefulWidget {
   const GetMediaWidget({
     Key? key,
@@ -368,8 +410,14 @@ class _GetMediaWidgetState extends State<GetMediaWidget> {
 
   @override
   Widget build(BuildContext context) {
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
+    height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    width = MediaQuery
+        .of(context)
+        .size
+        .width;
 
     return Positioned(
       bottom: 6,
@@ -391,8 +439,7 @@ class _GetMediaWidgetState extends State<GetMediaWidget> {
                 ),
               ],
               color: Colors.blue),
-          child: isExpanded
-              ? Column(
+          child: isExpanded ? Column(
             children: [
               const SizedBox(height: 10),
               _getImageItem("assets/icons/image.png"),

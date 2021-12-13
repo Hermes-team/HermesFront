@@ -82,7 +82,9 @@ class _HomePageState extends State<HomePage> {
       Navigator.pushReplacementNamed(context, '/signIn');
     });
 
-    Storage.getUniqid().then((value) => userUniqid = value);
+    Storage.getUniqid().then((value) {
+      userUniqid = value;
+    });
     super.initState();
   }
 

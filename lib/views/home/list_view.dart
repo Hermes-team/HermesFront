@@ -27,7 +27,7 @@ class _ListOfChatsState extends State<ListOfChats> {
 
       for (var server in servers) {
         var parsedServer = ServerRes.fromJson(server);
-        chatUsers.add(ChatUsers(name: parsedServer.name!, messageText: parsedServer.lastMessage!, imageURL: "", time: ""));
+        chatUsers.add(ChatUsers(name: parsedServer.name!, messageText: parsedServer.lastMessage!, imageURL: "assets/imgs/p4.png", time: ""));
       }
       setState(() {});
     });
