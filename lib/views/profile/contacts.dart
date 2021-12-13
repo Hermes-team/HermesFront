@@ -26,8 +26,11 @@ class _ContactsState extends State<ContactsPage> {
         for (var f in parsedFriends.friends!) {
           var parsedFriend = Friend.fromJson(f);
           contacts.add(
-              {"name": parsedFriend.nickname, "img": "asserts/imgs/p2.png"});
+              {"name": parsedFriend.nickname, "img": "assets/imgs/p2.png"});
         }
+      }
+      if (mounted) {
+        setState(() {});
       }
     });
 
