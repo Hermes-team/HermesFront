@@ -90,7 +90,6 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
 
   @override
   void dispose() {
-    // socket!.off("message", msgListener);
     super.dispose();
   }
 
@@ -243,6 +242,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
             Expanded(
               child: ListView.builder(
                 controller: _scrollController,
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 itemCount: _messages.length,
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(top: 7, bottom: 7),
