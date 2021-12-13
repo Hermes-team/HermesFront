@@ -5,7 +5,7 @@ import 'package:front/models/chat_users_model.dart';
 import 'package:front/models/res/server_res.dart';
 import 'package:front/services/globals.dart';
 import 'package:front/views/profile.dart';
-import 'package:front/widgets/conversation_list.dart';
+import 'package:front/views/home/conversation_list.dart';
 
 class ListOfChats extends StatefulWidget {
   const ListOfChats({Key? key}) : super(key: key);
@@ -68,7 +68,7 @@ class _ListOfChatsState extends State<ListOfChats> {
               IconButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ProfilePage();
+                    return const ProfilePage();
                   }));
                 },
                 icon: const Icon(

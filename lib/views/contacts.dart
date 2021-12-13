@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/private_chat.dart';
+import 'package:front/views/chat/private_chat.dart';
 
 class ContactsPage extends StatefulWidget {
   const ContactsPage({Key? key}) : super(key: key);

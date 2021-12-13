@@ -6,7 +6,7 @@ import 'package:front/models/req/login_req.dart';
 import 'package:front/models/res/login_res.dart';
 import 'package:front/models/storage/storage.dart';
 import 'package:front/services/auth_service.dart';
-import 'package:front/views/sign_up.dart';
+import 'package:front/views/login/sign_up.dart';
 
 
 class SignInPage extends StatefulWidget {

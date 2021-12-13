@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/private_chat.dart';
+import 'package:front/views/chat/private_chat.dart';
 
 class NewMessagePage extends StatefulWidget {
   const NewMessagePage({Key? key}) : super(key: key);
