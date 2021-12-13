@@ -82,14 +82,14 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       for (var message in bulk.messages!) {
         var parsedMessage = MessageRes.fromJson(message);
         loadOldMessage(parsedMessage);
+        Timer(
+          const Duration(milliseconds: 50),
+          () => scrollDown()
+        );
       }
     });
 
     socket!.emit('get messages', ChannelReq(channel: "GENERAL_CHANNEL", server: "GENERAL_SERVER"));
-    Timer(
-      const Duration(milliseconds: 750),
-          () => scrollDown(),
-    );
     super.initState();
   }
 
