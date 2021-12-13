@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:front/models/chat_users_model.dart';
 import 'package:front/models/res/server_res.dart';
 import 'package:front/services/globals.dart';
-import 'package:front/views/profile.dart';
+import 'package:front/views/profile/profile.dart';
 import 'package:front/views/home/conversation_list.dart';
 
 class ListOfChats extends StatefulWidget {

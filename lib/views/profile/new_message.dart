@@ -46,7 +46,7 @@ class _NewMessagePageState extends State<NewMessagePage> {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: const TextField(
                 style: TextStyle(color: Color(0xFFc9c9c9)),
                 decoration: InputDecoration(
@@ -66,7 +66,7 @@ class _NewMessagePageState extends State<NewMessagePage> {
                 itemCount: contacts.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+                    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 3),
                     child: ListTile(
                       // onTap: () => navigatePage(
                       //   context,
@@ -81,9 +81,9 @@ class _NewMessagePageState extends State<NewMessagePage> {
                       },
                       title: Text(
                         "${contacts[index]["name"]}",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                        style: const TextStyle(fontSize: 16, color: Colors.white),
                       ),
-                      contentPadding: EdgeInsets.all(4),
+                      contentPadding: const EdgeInsets.all(4),
                       leading: CircleAvatar(
                         maxRadius: 32.0,
                         child: Image.asset(
