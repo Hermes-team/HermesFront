@@ -37,5 +37,6 @@ class Storage {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove("token");
     prefs.remove("tokenSelector");
+    prefs.remove("uniqid");
   }
 }

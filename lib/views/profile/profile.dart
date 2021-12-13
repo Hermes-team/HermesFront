@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/models/storage/storage.dart';
 import 'package:front/views/profile/add_contact.dart';
 import 'package:front/views/profile/contacts.dart';
 import 'package:front/views/profile/invite_friend.dart';
@@ -18,8 +19,8 @@ class _ProfilePageState extends State<ProfilePage> {
   late String img = "assets/imgs/p3.png";
 
   void logout() {
-    //TODO: implement
-    throw Exception("Not implemented yet");
+    Storage.removeTokens();
+    Navigator.pushReplacementNamed(context, "/signIn");
   }
 
   @override
