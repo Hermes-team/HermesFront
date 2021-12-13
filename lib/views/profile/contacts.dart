@@ -1,4 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:front/models/res/friend_res.dart';
+import 'package:front/models/res/friends_res.dart';
+import 'package:front/services/globals.dart';
 import 'package:front/views/chat/private_chat.dart';
 
 class ContactsPage extends StatefulWidget {
@@ -9,21 +14,30 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsState extends State<ContactsPage> {
-  List<Map<String, dynamic>> contacts = [
-    {"name": "Liam", "img": "assets/imgs/p2.png"},
-    {"name": "Olivia", "img": "assets/imgs/p3.png"},
-    {"name": "Ava", "img": "assets/imgs/p6.png"},
-    {"name": "Oscar", "img": "assets/imgs/p4.png"},
-    {"name": "Ivy", "img": "assets/imgs/p1.png"},
-    {"name": "Jack", "img": "assets/imgs/p5.png"},
-    {"name": "Noah", "img": "assets/imgs/p2.png"},
-    {"name": "Oliver", "img": "assets/imgs/p3.png"},
-    {"name": "William", "img": "assets/imgs/p6.png"},
-    {"name": "Sophia", "img": "assets/imgs/p4.png"},
-    {"name": "Mary", "img": "assets/imgs/p1.png"},
-    {"name": "Alexander", "img": "assets/imgs/p5.png"},
-    {"name": "Lucas", "img": "assets/imgs/p2.png"}
-  ];
+  List<Map<String, dynamic>> contacts = [];
+
+  @override
+  void initState() {
+    socket?.on("get friends success", (friends) {
+      log("Friends success");
+      log(friends.toString());
+      var parsedFriends = Friends.fromJson(friends);
+      if (parsedFriends.friends != null) {
+        for (var f in parsedFriends.friends!) {
+          var parsedFriend = Friend.fromJson(f);
+          contacts.add(
+              {"name": parsedFriend.nickname, "img": "asserts/imgs/p2.png"});
+        }
+      }
+    });
+
+    socket?.on("get friends fail", (data) {
+      log("Friends fail");
+    });
+    
+    socket?.emit("get friends");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
