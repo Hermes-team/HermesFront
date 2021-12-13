@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 import 'dart:developer';
 
@@ -85,18 +86,17 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
     });
 
     socket!.emit('get messages', ChannelReq(channel: "GENERAL_CHANNEL", server: "GENERAL_SERVER"));
+    Timer(
+      const Duration(milliseconds: 750),
+          () => scrollDown(),
+    );
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   scrollDown() {
     _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300) * 1.02,
+      _scrollController.position.maxScrollExtent * 1.02,
+      duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOutExpo,
     );
   }
