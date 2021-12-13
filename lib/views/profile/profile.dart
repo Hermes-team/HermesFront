@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:front/views/add_contact.dart';
-import 'package:front/views/contacts.dart';
-import 'package:front/views/invite_friend.dart';
+import 'package:front/models/storage/storage.dart';
+import 'package:front/services/globals.dart';
+import 'package:front/views/profile/add_contact.dart';
+import 'package:front/views/profile/contacts.dart';
+import 'package:front/views/profile/invite_friend.dart';
 import 'package:front/views/new_group.dart';
-import 'package:front/views/new_message.dart';
+import 'package:front/views/profile/new_message.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -16,6 +18,12 @@ class _ProfilePageState extends State<ProfilePage> {
   late String name = "Mia";
   late String email = "mia_123@gmail.com";
   late String img = "assets/imgs/p3.png";
+
+  void logout() {
+    Storage.removeTokens();
+    socket?.disconnect();
+    Navigator.pushReplacementNamed(context, "/signIn");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +47,13 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: 110,
               width: MediaQuery.of(context).size.width,
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: CircleAvatar(
                       maxRadius: 50,
                       child: Image.asset(
@@ -64,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       Text(
                         name,
-                        style: TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.w100),
+                        style: const TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.w100),
                       ),
                       const SizedBox(
                         height: 20,
@@ -73,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         opacity: 0.6,
                         child: Text(
                           email,
-                          style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
+                          style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
                         ),
                       ),
                     ],
@@ -92,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   InkWell(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return NewMessagePage();
+                        return const NewMessagePage();
                       }));
                     },
                     child: Row(
@@ -117,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   InkWell(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return NewGroupPage();
+                        return const NewGroupPage();
                       }));
                     },
                     child: Row(
@@ -142,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   InkWell(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return AddContactPage();
+                        return const AddContactPage();
                       }));
                     },
                     child: Row(
@@ -167,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   InkWell(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return ContactsPage();
+                        return const ContactsPage();
                       }));
                     },
                     child: Row(
@@ -192,7 +200,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   InkWell(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return InviteFriendPage();
+                        return const InviteFriendPage();
                       }));
                     },
                     child: Row(
@@ -206,6 +214,29 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         Text(
                           'Invite Friend',
+                          style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 17,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      logout();
+                    },
+                    child: Row(
+                      children: const [
+                        Image(
+                          image: AssetImage("assets/icons/logout.png"),
+                          height: 28,
+                        ),
+                        SizedBox(
+                          width: 17,
+                        ),
+                        Text(
+                          'Log out',
                           style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
                         ),
                       ],
