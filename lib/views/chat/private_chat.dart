@@ -294,7 +294,10 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                     Expanded(
                       child: TextField(
                         onTap: () {
-                          scrollDown();
+                          Timer(
+                              const Duration(milliseconds: 50),
+                                  () => scrollDown()
+                          );
                         },
                         controller: _msgController,
                         style: const TextStyle(color: Color(0xFFc9c9c9)),
