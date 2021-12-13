@@ -39,7 +39,6 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       _messages.add(chatMsg);
     }
     if (mounted) {
-      log("mounted in add server");
       setState(() {});
       scrollDown();
     }
@@ -57,6 +56,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
 
   sendMsg() {
     var msgData = MessageReq(msg: _msgController.text);
+    if (msgData.msg == "") return;
     var chatMsg = ChatMessage(messageContent: msgData.msg, messageType: "sender", uuid: "");
     _messages.add(chatMsg);
     socket?.emit('message', msgData);
@@ -96,7 +96,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
 
   scrollDown() {
     _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent * 1.025,
+      _scrollController.position.maxScrollExtent * 1.02,
       duration: const Duration(milliseconds: 300),
       curve: Curves.fastOutSlowIn,
     );
