@@ -27,7 +27,10 @@ class _ListOfChatsState extends State<ListOfChats> {
 
       for (var server in servers) {
         var parsedServer = ServerRes.fromJson(server);
-        chatUsers.add(ChatUsers(name: parsedServer.name!, messageText: parsedServer.lastMessage!, imageURL: "assets/imgs/p4.png", time: ""));
+        chatUsers.add(ChatUsers(name: parsedServer.name!,
+            messageText: parsedServer.lastMessage != null ? parsedServer.lastMessage! : "",
+            imageURL: "assets/imgs/p4.png", time: "",
+            uniqid: parsedServer.id!));
       }
       setState(() {});
     });
@@ -102,6 +105,7 @@ class _ListOfChatsState extends State<ListOfChats> {
                       time: chatUsers[index].time,
                       isMessageRead: (index == 0 || index == 3),
                       isGroup: chatUsers[index].name == 'Group',
+                      uniqid: chatUsers[index].uniqid,
                     );
                   },
                 ),

@@ -9,6 +9,7 @@ class ConversationList extends StatefulWidget {
   final String time;
   final bool isMessageRead;
   final bool isGroup;
+  final String uniqid;
 
   const ConversationList({
     Key? key,
@@ -17,7 +18,8 @@ class ConversationList extends StatefulWidget {
     required this.img,
     required this.time,
     required this.isMessageRead,
-    required this.isGroup
+    required this.isGroup,
+    required this.uniqid
   }) : super(key: key);
 
   @override
@@ -35,7 +37,7 @@ class _ConversationListState extends State<ConversationList> {
           }));
         } else {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return PrivateChatPage(name: widget.name, img: widget.img);
+            return PrivateChatPage(name: widget.name, img: widget.img, uniqid: widget.uniqid);
           }));
         }
       },

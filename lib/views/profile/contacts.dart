@@ -151,7 +151,7 @@ class _ContactsState extends State<ContactsPage> {
                     child: ListTile(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return PrivateChatPage(name: contacts[index].nickname,img: contacts[index].img!);
+                          return PrivateChatPage(name: contacts[index].nickname,img: contacts[index].img!, uniqid: contacts[index].uniqid,);
                         }));
                       },
                       title: Text(
