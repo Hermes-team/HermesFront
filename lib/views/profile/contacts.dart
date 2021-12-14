@@ -104,9 +104,6 @@ class _ContactsState extends State<ContactsPage> {
                 ),
               ),
             ),
-            const Divider(
-                color: Color(0xFF182226)
-            ),
             ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
@@ -144,9 +141,6 @@ class _ContactsState extends State<ContactsPage> {
                   ),
                 );
               },
-            ),
-            const Divider(
-                color: Color(0xFF182226)
             ),
             Expanded(
               child: ListView.builder(
