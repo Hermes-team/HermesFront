@@ -2,6 +2,8 @@ import 'package:front/models/req/socket_auth_req.dart';
 import 'package:front/models/res/login_res.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../user_data.dart';
+
 class Storage {
   static Future<void> saveTokens(String token, String selector) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -27,6 +29,11 @@ class Storage {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return SocketAuthReq(selector: prefs.getString("tokenSelector")!, token: prefs.getString("token")!);
   }
+
+  static Future<UserData> getUserData() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return UserData(nickname: prefs.getString("nickname")!, tag: prefs.getInt("tag")!);
+}
 
   static Future<String?> getUniqid() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

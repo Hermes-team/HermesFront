@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/models/storage/storage.dart';
+import 'package:front/models/user_data.dart';
 import 'package:front/services/globals.dart';
 import 'package:front/views/profile/add_contact.dart';
 import 'package:front/views/profile/contacts.dart';
@@ -15,14 +16,30 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late String name = "Mia";
-  late String email = "mia_123@gmail.com";
+  late String name = "";
+  late int tag = 0;
   late String img = "assets/imgs/p3.png";
 
   void logout() {
     Storage.removeTokens();
     socket?.disconnect();
     Navigator.pushReplacementNamed(context, "/signIn");
+  }
+
+  void loadUserData() async {
+    UserData myInfo = await Storage.getUserData();
+    if (mounted) {
+      setState(() {
+        name = myInfo.nickname;
+        tag = myInfo.tag;
+      });
+    }
+}
+
+  @override
+  void initState() {
+    loadUserData();
+    super.initState();
   }
 
   @override
@@ -80,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Opacity(
                         opacity: 0.6,
                         child: Text(
-                          email,
+                          tag.toString(),
                           style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
                         ),
                       ),
