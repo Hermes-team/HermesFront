@@ -6,6 +6,7 @@ class LoginRes{
   String? uniqid;
   String? nickname;
   int? tag;
+  String? email;
 
   LoginRes({
     required this.success,
@@ -18,6 +19,7 @@ class LoginRes{
     selector = json['selector'],
     uniqid = json['uniqid'],
     nickname = json['nickname'],
+    email = json['email'],
     tag = json['tag'];
 
   Map<String, dynamic> toJson() {
@@ -29,6 +31,7 @@ class LoginRes{
       'uniqid': uniqid,
       'nickname': nickname,
       'tag': tag,
+      'email': email
     };
   }
 }

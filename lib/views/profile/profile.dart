@@ -17,7 +17,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   late String name = "";
-  late int tag = 0;
+  late String email = "";
   late String img = "assets/imgs/p3.png";
 
   void logout() {
@@ -30,8 +30,8 @@ class _ProfilePageState extends State<ProfilePage> {
     UserData myInfo = await Storage.getUserData();
     if (mounted) {
       setState(() {
-        name = myInfo.nickname;
-        tag = myInfo.tag;
+        name = myInfo.nickname + "#" + myInfo.tag.toString();
+        email = myInfo.email;
       });
     }
 }
@@ -97,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Opacity(
                         opacity: 0.6,
                         child: Text(
-                          tag.toString(),
+                          email,
                           style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w100),
                         ),
                       ),

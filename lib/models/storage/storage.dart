@@ -18,6 +18,7 @@ class Storage {
     prefs.setString("nickname", r.nickname!);
     prefs.setInt("tag", r.tag!);
     prefs.setString("uniqid", r.uniqid!);
+    prefs.setString("email", r.email!);
   }
 
   static Future<bool> hasToken() async {
@@ -32,7 +33,7 @@ class Storage {
 
   static Future<UserData> getUserData() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return UserData(nickname: prefs.getString("nickname")!, tag: prefs.getInt("tag")!);
+  return UserData(nickname: prefs.getString("nickname")!, tag: prefs.getInt("tag")!, email: prefs.getString("email")!);
 }
 
   static Future<String?> getUniqid() async {
