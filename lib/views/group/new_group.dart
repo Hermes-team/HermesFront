@@ -2,7 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_users_model.dart';
-import 'package:front/models/res/server_res.dart';
+import 'package:front/models/res/friend_res.dart';
+import 'package:front/models/res/friends_res.dart';
 import 'package:front/services/globals.dart';
 import 'package:front/views/group/naming_new_group.dart';
 
@@ -15,32 +16,36 @@ class NewGroupPage extends StatefulWidget {
 
 class _NewGroupPageState extends State<NewGroupPage> {
   List<ChatUsers> contacts = [];
+  List<ChatUsers> selected = [];
 
   @override
   void initState() {
-    socket!.on('servers', (servers) {
-      if (servers == null || servers == []) {
+    socket!.on('get friends success', (friends) {
+      if (friends == null || friends == []) {
         log("No servers found!");
         return;
       }
       contacts.clear();
 
-      for (var server in servers) {
-        var parsedServer = ServerRes.fromJson(server);
+      var parsedFriendList = Friends.fromJson(friends);
+      for (var friend in parsedFriendList.friends!) {
+        var parsedFriend = Friend.fromJson(friend);
         contacts.add(
             ChatUsers(
-              name: parsedServer.name!,
-              messageText: parsedServer.lastMessage != null ? parsedServer.lastMessage! : "",
-              imageURL: "assets/imgs/p4.png",
-              time: "",
-              uniqid: parsedServer.id!)
+              name: parsedFriend.nickname,
+              messageText: "", //unused here
+              imageURL: parsedFriend.img == null ? "assets/imgs/p4.png" : parsedFriend.img!,
+              time: "", //unused
+              uniqid: parsedFriend.uniqid)
         );
       }
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
 
     log("Retrieving userlist.");
-    socket?.emit('get servers');
+    socket?.emit('get friends');
     super.initState();
   }
 
@@ -86,7 +91,7 @@ class _NewGroupPageState extends State<NewGroupPage> {
                   child: ListView.builder(
                       itemCount: contacts.length,
                       itemBuilder: (context, index) {
-                        return Contact(contact: contacts[index]);
+                        return Contact(contact: contacts[index], selected: selected,);
                       }),
                 ),
               ],
@@ -104,7 +109,7 @@ class _NewGroupPageState extends State<NewGroupPage> {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return const NamingNewGroup();
+                          return NamingNewGroup(users: selected,);
                         }));
                       },
                       child: Container(
@@ -131,32 +136,42 @@ class _NewGroupPageState extends State<NewGroupPage> {
   }
 }
 
-class Contact extends StatelessWidget {
-  const Contact({Key? key, required this.contact}) : super(key: key);
+class Contact extends StatefulWidget {
+  const Contact({Key? key, required this.contact, required this.selected}) : super(key: key);
 
   final ChatUsers contact;
+  final List<ChatUsers> selected;
 
   @override
-  Widget build(BuildContext context) {
-    var checked = false;
+  State<Contact> createState() => _ContactState();
+}
 
+class _ContactState extends State<Contact> {
+  @override
+  Widget build(BuildContext context) {
+    bool checked = false;
     return StatefulBuilder(builder: (context, setState) {
       return GestureDetector(
         onTap: () => setState(() {
-          checked = !checked ? true : false;
+          checked = !checked;
+          if (checked) {
+            widget.selected.add(widget.contact);
+          } else {
+            widget.selected.remove(widget.contact);
+          }
         }),
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 3),
           child: ListTile(
             title: Text(
-              contact.name,
+              widget.contact.name,
               style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
             contentPadding: const EdgeInsets.all(4),
             leading: CircleAvatar(
               maxRadius: 32.0,
               child: Image.asset(
-                contact.imageURL,
+                widget.contact.imageURL,
               ),
             ),
             trailing: Container(

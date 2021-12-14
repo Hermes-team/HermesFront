@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:front/models/chat_users_model.dart';
 
 import '../chat/group_chat.dart';
 
 class NamingNewGroup extends StatefulWidget {
-  const NamingNewGroup({Key? key}) : super(key: key);
+  final List<ChatUsers> users;
+  const NamingNewGroup({Key? key, required this.users}) : super(key: key);
 
   @override
   _NamingNewGroupState createState() => _NamingNewGroupState();
