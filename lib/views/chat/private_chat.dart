@@ -87,7 +87,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       }
     });
 
-    socket!.emit('get messages', ServerReq(channel: "GENERAL_CHANNEL", server: "GENERAL_SERVER"));
+    socket!.emit('get messages', ServerReq(server: "GENERAL_SERVER"));
     super.initState();
   }
 
