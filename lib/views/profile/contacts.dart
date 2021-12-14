@@ -57,17 +57,11 @@ class _ContactsState extends State<ContactsPage> {
       dev.log(note);
       Fluttertoast.showToast(msg: note, gravity: ToastGravity.SNACKBAR);
       socket?.emit("get friends");
-      if (mounted) {
-        setState(() {});
-      }
     });
 
     socket?.on("get friends fail", (data) {
       dev.log("Friends fail");
       Fluttertoast.showToast(msg: "Could not retrieve contacts. Try again later.", gravity: ToastGravity.SNACKBAR);
-      if (mounted) {
-        setState(() {});
-      }
     });
     
     socket?.emit("get friends");
