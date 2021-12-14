@@ -12,12 +12,6 @@ class NamingNewGroup extends StatefulWidget {
 }
 
 class _NamingNewGroupState extends State<NamingNewGroup> {
-  List<Map<String, dynamic>> contacts = [
-    {"name": "Liam", "img": "assets/imgs/p2.png"},
-    {"name": "Ava", "img": "assets/imgs/p6.png"},
-    {"name": "Oscar", "img": "assets/imgs/p4.png"},
-  ];
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
 
@@ -103,20 +97,20 @@ class _NamingNewGroupState extends State<NamingNewGroup> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: contacts.length,
+                      itemCount: widget.users.length,
                       itemBuilder: (context, index) {
                         return Container(
                           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 3),
                           child: ListTile(
                             title: Text(
-                              "${contacts[index]["name"]}",
+                              widget.users[index].name,
                               style: const TextStyle(fontSize: 16, color: Colors.white),
                             ),
                             contentPadding: const EdgeInsets.all(4),
                             leading: CircleAvatar(
                               maxRadius: 32.0,
                               child: Image.asset(
-                                "${contacts[index]["img"]}",
+                                widget.users[index].imageURL,
                               ),
                             ),
                           ),
