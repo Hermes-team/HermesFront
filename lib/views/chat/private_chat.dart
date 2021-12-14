@@ -9,6 +9,7 @@ import 'package:front/models/req/message_req.dart';
 import 'package:front/models/res/bulk_message_res.dart';
 import 'package:front/models/res/message_res.dart';
 import 'package:front/services/globals.dart';
+import 'package:giphy_picker/giphy_picker.dart';
 
 class PrivateChatPage extends StatefulWidget {
   final String name;
@@ -28,6 +29,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
   final LinkedHashSet<ChatMessage> _messages = LinkedHashSet<ChatMessage>();
   // ignore: prefer_typing_uninitialized_variables
   late var msgListener;
+  GiphyGif? _gif;
 
 
   addMsgFromServer(MessageRes messagePayload) {
@@ -297,15 +299,17 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                       width: 15,
                     ),
                     Expanded(
-                      child: TextField(
-                        onTap: () {
-                          scrollDown();
-                        },
-                        controller: _msgController,
-                        style: const TextStyle(color: Color(0xFFc9c9c9)),
-                        decoration: const InputDecoration(
-                            hintText: "Message...", hintStyle: TextStyle(color: Color(0xFFc9c9c9)), border: InputBorder.none),
-                      ),
+                      child: _gif == null
+                        ? TextField(
+                          onTap: () {
+                            scrollDown();
+                          },
+                          controller: _msgController,
+                          style: const TextStyle(color: Color(0xFFc9c9c9)),
+                          decoration: const InputDecoration(
+                              hintText: "Message...", hintStyle: TextStyle(color: Color(0xFFc9c9c9)), border: InputBorder.none),
+                        )
+                      : GiphyImage.original(gif: _gif!),
                     ),
                     const SizedBox(
                       width: 15,
@@ -345,11 +349,14 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: const [
-                                  Image(
-                                    image: AssetImage("assets/icons/smile.png"),
-                                    height: 30,
-                                    width: 30,
-                                  ),
+                                  TextButton(
+                                    onPressed: null,
+                                    child: Image(
+                                      image: AssetImage("assets/icons/smile.png"),
+                                      height: 30,
+                                      width: 30,
+                                    ),
+                                  )
                                   // // Icon(Icons.search),
                                 ],
                               ),
@@ -359,12 +366,39 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                children: const [
-                                  Image(
-                                    image: AssetImage("assets/icons/gif.png"),
-                                    height: 30,
-                                    width: 30,
-                                  ),
+                                children: [
+                                  TextButton(
+                                    onPressed: () async {
+                                      final gif = await GiphyPicker.pickGif(
+                                        context: context,
+                                        apiKey: 'hhEkPemfm4FqTY1a77blXL01f3D6xtPg',
+                                        fullScreenDialog: false,
+                                        previewType: GiphyPreviewType.previewWebp,
+                                        decorator: GiphyDecorator(
+                                          showAppBar: false,
+                                          searchElevation: 4,
+                                          giphyTheme: ThemeData.dark().copyWith(
+                                            inputDecorationTheme: const InputDecorationTheme(
+                                              border: InputBorder.none,
+                                              enabledBorder: InputBorder.none,
+                                              focusedBorder: InputBorder.none,
+                                              contentPadding: EdgeInsets.zero,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+
+                                      if (gif != null) {
+                                        setState(() => _gif = gif);
+                                      }
+                                    },
+                                    child: const Image(
+                                      image: AssetImage("assets/icons/gif.png"),
+                                      height: 30,
+                                      width: 30,
+                                    ),
+                                  )
+                                  // // Icon(Icons.search),
                                 ],
                               ),
                               value: "Search",
