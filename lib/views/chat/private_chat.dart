@@ -94,11 +94,13 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
   scrollDown() {
     Timer(
         const Duration(milliseconds: 50), () {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOutExpo,
-      );
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOutExpo,
+        );
+      }
     });
   }
 
