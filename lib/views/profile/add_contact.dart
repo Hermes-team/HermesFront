@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:front/views/chat/private_chat.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:front/services/globals.dart';
 
 class AddContactPage extends StatefulWidget {
   const AddContactPage({Key? key}) : super(key: key);
@@ -10,7 +13,29 @@ class AddContactPage extends StatefulWidget {
 
 class _AddContactPageState extends State<AddContactPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  var nameController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _tagController = TextEditingController();
+
+  addFriend() {
+    String username = _nameController.text;
+    int tag = int.parse(_tagController.text);
+    log("Adding friend: " + username + " " + tag.toString());
+    socket?.emit("add friend", {"nickname": username, "tag": tag});
+    FocusScope.of(context).unfocus();
+  }
+
+  @override
+  void initState() {
+    socket!.on("add friend success", (data) {
+      Fluttertoast.showToast(msg: "Sent friend request!", gravity: ToastGravity.SNACKBAR);
+    });
+
+    socket!.on("add friend fail", (data) {
+      Fluttertoast.showToast(msg: "User not found. Sorry.", gravity: ToastGravity.SNACKBAR);
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +72,7 @@ class _AddContactPageState extends State<AddContactPage> {
                   child: Column(
                     children: [
                       TextFormField(
-                        controller: nameController,
+                        controller: _nameController,
                         style: const TextStyle(color: Color(0xFFc9c9c9)),
                         decoration: const InputDecoration(hintText: "Name"),
                         validator: (value) {
@@ -59,6 +84,8 @@ class _AddContactPageState extends State<AddContactPage> {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
+                        controller: _tagController,
+                        keyboardType: TextInputType.number,
                         style: const TextStyle(color: Color(0xFFc9c9c9)),
                         decoration: const InputDecoration(hintText: "Tag"),
                         validator: (value) {
@@ -74,9 +101,7 @@ class _AddContactPageState extends State<AddContactPage> {
                 GestureDetector(
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return PrivateChatPage(name: nameController.text, img: 'assets/icons/user.png');
-                      }));
+                      addFriend();
                     }
                   },
                   child: Container(
