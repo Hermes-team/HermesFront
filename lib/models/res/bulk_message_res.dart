@@ -1,10 +1,10 @@
 class BulkMessageRes {
   List<dynamic>? messages;
-  String? channel;
+  String? server;
 
-  BulkMessageRes({this.messages, this.channel});
+  BulkMessageRes({this.messages, this.server});
 
   BulkMessageRes.fromJson(Map<String, dynamic> json):
       messages = json["messages"],
-      channel = json["channel"];
+      server = json["server"];
 }

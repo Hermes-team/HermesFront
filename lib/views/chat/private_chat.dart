@@ -3,7 +3,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_message_model.dart';
-import 'package:front/models/req/channel_req.dart';
+import 'package:front/models/req/server_req.dart';
 import 'package:front/models/req/message_req.dart';
 import 'package:front/models/res/bulk_message_res.dart';
 import 'package:front/models/res/message_res.dart';
@@ -87,7 +87,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       }
     });
 
-    socket!.emit('get messages', ChannelReq(channel: "GENERAL_CHANNEL", server: "GENERAL_SERVER"));
+    socket!.emit('get messages', ServerReq(channel: "GENERAL_CHANNEL", server: "GENERAL_SERVER"));
     super.initState();
   }
 

@@ -1,8 +1,8 @@
-class ChannelReq {
+class ServerReq {
   String channel;
   String server;
 
-  ChannelReq({required this.channel, required this.server});
+  ServerReq({required this.channel, required this.server});
 
 
   Map<String, dynamic> toJson() {

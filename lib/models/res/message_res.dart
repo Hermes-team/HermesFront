@@ -1,6 +1,5 @@
 class MessageRes {
   String? message;
-  String? channel;
   String? server;
   String? user;
   int? time;
@@ -10,7 +9,6 @@ class MessageRes {
 
   MessageRes({
     this.message,
-    this.channel,
     this.user,
     this.server,
     this.time,
@@ -21,7 +19,6 @@ class MessageRes {
 
   MessageRes.fromJson(Map<String, dynamic> json):
     message = json['message'],
-    channel = json['channel'],
     server = json['server'],
     user = json['user'],
     time = json['time'],
