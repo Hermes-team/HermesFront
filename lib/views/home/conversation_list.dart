@@ -10,6 +10,7 @@ class ConversationList extends StatefulWidget {
   final bool isMessageRead;
   final bool isGroup;
   final String uniqid;
+  final Function getServers;
 
   const ConversationList({
     Key? key,
@@ -19,7 +20,8 @@ class ConversationList extends StatefulWidget {
     required this.time,
     required this.isMessageRead,
     required this.isGroup,
-    required this.uniqid
+    required this.uniqid,
+    required this.getServers
   }) : super(key: key);
 
   @override
@@ -27,6 +29,12 @@ class ConversationList extends StatefulWidget {
 }
 
 class _ConversationListState extends State<ConversationList> {
+
+  @override
+  void dispose() {
+    widget.getServers();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -37,7 +45,7 @@ class _ConversationListState extends State<ConversationList> {
           }));
         } else {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return PrivateChatPage(name: widget.name, img: widget.img, uniqid: widget.uniqid);
+            return PrivateChatPage(name: widget.name, img: widget.img, serversUniqid: widget.uniqid);
           }));
         }
       },

@@ -5,11 +5,13 @@ import 'package:front/services/globals.dart';
 import 'package:front/views/profile/add_contact.dart';
 import 'package:front/views/profile/contacts.dart';
 import 'package:front/views/profile/invite_friend.dart';
-import 'package:front/views/new_group.dart';
+import 'package:front/views/group/new_group.dart';
 import 'package:front/views/profile/new_message.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  final Function getServers;
+
+  const ProfilePage({Key? key, required this.getServers}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -40,6 +42,12 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     loadUserData();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.getServers();
+    super.dispose();
   }
 
   @override

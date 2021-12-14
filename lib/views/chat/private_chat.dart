@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_message_model.dart';
@@ -12,9 +13,9 @@ import 'package:front/services/globals.dart';
 class PrivateChatPage extends StatefulWidget {
   final String name;
   final String img;
-  final String uniqid;
+  final String serversUniqid;
 
-  const PrivateChatPage({Key? key, required this.name, required this.img, required this.uniqid}) : super(key: key);
+  const PrivateChatPage({Key? key, required this.name, required this.img, required this.serversUniqid}) : super(key: key);
 
   @override
   _PrivateChatPageState createState() => _PrivateChatPageState();
@@ -57,7 +58,8 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
   }
 
   sendMsg() {
-    var msgData = MessageReq(msg: _msgController.text, uniqid: widget.uniqid);
+    log("Servers uuid: " + widget.serversUniqid);
+    var msgData = MessageReq(msg: _msgController.text, server: widget.serversUniqid);
     if (msgData.msg == "") return;
     var chatMsg = ChatMessage(messageContent: msgData.msg, messageType: "sender", uuid: "");
     _messages.add(chatMsg);
@@ -87,7 +89,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       }
     });
 
-    socket!.emit('get messages', ServerReq(server: "GENERAL_SERVER"));
+    socket!.emit('get messages', ServerReq(server: widget.serversUniqid));
     super.initState();
   }
 

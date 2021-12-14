@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'chat/group_chat.dart';
+import '../chat/group_chat.dart';
 
-class NewGroup2Page extends StatefulWidget {
-  const NewGroup2Page({Key? key}) : super(key: key);
+class NamingNewGroup extends StatefulWidget {
+  const NamingNewGroup({Key? key}) : super(key: key);
 
   @override
-  _NewGroup2PageState createState() => _NewGroup2PageState();
+  _NamingNewGroupState createState() => _NamingNewGroupState();
 }
 
-class _NewGroup2PageState extends State<NewGroup2Page> {
+class _NamingNewGroupState extends State<NamingNewGroup> {
   List<Map<String, dynamic>> contacts = [
     {"name": "Liam", "img": "assets/imgs/p2.png"},
     {"name": "Ava", "img": "assets/imgs/p6.png"},

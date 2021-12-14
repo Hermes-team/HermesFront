@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:front/models/chat_users_model.dart';
 import 'package:front/models/res/server_res.dart';
+import 'package:front/models/storage/storage.dart';
 import 'package:front/services/globals.dart';
 import 'package:front/views/profile/profile.dart';
 import 'package:front/views/home/conversation_list.dart';
@@ -28,19 +29,35 @@ class _ListOfChatsState extends State<ListOfChats> {
 
       for (var server in servers) {
         var parsedServer = ServerRes.fromJson(server);
-        chatUsers.add(ChatUsers(name: parsedServer.name!,
-            messageText: parsedServer.lastMessage != null ? parsedServer.lastMessage! : "",
-            imageURL: "assets/imgs/p4.png", time: "",
-            uniqid: parsedServer.id!));
+        chatUsers.add(
+            ChatUsers(
+              name: parsedServer.name!,
+              messageText: parsedServer.lastMessage != null ? parsedServer.lastMessage! : "",
+              imageURL: "assets/imgs/p4.png", time: "",
+              uniqid: parsedServer.id!)
+        );
       }
       setState(() {});
     });
 
     socket!.on('authenticated', (_) {
-      log("Authenticated. Retrieving server list");
+      log("Authenticated.");
+      log("Retrieving server list");
       socket?.emit('get servers');
     });
+
     super.initState();
+  }
+
+  Future<bool> hasTokens() async {
+    return await Storage.hasToken();
+  }
+
+  retrieveServerList() async {
+    if (await Storage.hasToken()) {
+      log("Retrieving server list");
+      socket?.emit("get servers");
+    }
   }
 
   @override
@@ -72,7 +89,7 @@ class _ListOfChatsState extends State<ListOfChats> {
               IconButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const ProfilePage();
+                    return ProfilePage(getServers: retrieveServerList,);
                   }));
                 },
                 icon: const Icon(
@@ -107,6 +124,7 @@ class _ListOfChatsState extends State<ListOfChats> {
                       isMessageRead: (index == 0 || index == 3),
                       isGroup: chatUsers[index].name == 'Group',
                       uniqid: chatUsers[index].uniqid,
+                      getServers: retrieveServerList,
                     );
                   },
                 ),

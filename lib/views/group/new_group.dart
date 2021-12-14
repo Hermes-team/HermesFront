@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:front/views/new_group_2.dart';
+import 'package:front/models/chat_users_model.dart';
+import 'package:front/models/res/server_res.dart';
+import 'package:front/services/globals.dart';
+import 'package:front/views/group/naming_new_group.dart';
 
 class NewGroupPage extends StatefulWidget {
   const NewGroupPage({Key? key}) : super(key: key);
@@ -9,21 +14,35 @@ class NewGroupPage extends StatefulWidget {
 }
 
 class _NewGroupPageState extends State<NewGroupPage> {
-  List<Map<String, dynamic>> contacts = [
-    {"name": "Liam", "img": "assets/imgs/p2.png"},
-    {"name": "Olivia", "img": "assets/imgs/p3.png"},
-    {"name": "Ava", "img": "assets/imgs/p6.png"},
-    {"name": "Oscar", "img": "assets/imgs/p4.png"},
-    {"name": "Ivy", "img": "assets/imgs/p1.png"},
-    {"name": "Jack", "img": "assets/imgs/p5.png"},
-    {"name": "Noah", "img": "assets/imgs/p2.png"},
-    {"name": "Oliver", "img": "assets/imgs/p3.png"},
-    {"name": "William", "img": "assets/imgs/p6.png"},
-    {"name": "Sophia", "img": "assets/imgs/p4.png"},
-    {"name": "Mary", "img": "assets/imgs/p1.png"},
-    {"name": "Alexander", "img": "assets/imgs/p5.png"},
-    {"name": "Lucas", "img": "assets/imgs/p2.png"}
-  ];
+  List<ChatUsers> contacts = [];
+
+  @override
+  void initState() {
+    socket!.on('servers', (servers) {
+      if (servers == null || servers == []) {
+        log("No servers found!");
+        return;
+      }
+      contacts.clear();
+
+      for (var server in servers) {
+        var parsedServer = ServerRes.fromJson(server);
+        contacts.add(
+            ChatUsers(
+              name: parsedServer.name!,
+              messageText: parsedServer.lastMessage != null ? parsedServer.lastMessage! : "",
+              imageURL: "assets/imgs/p4.png",
+              time: "",
+              uniqid: parsedServer.id!)
+        );
+      }
+      setState(() {});
+    });
+
+    log("Retrieving userlist.");
+    socket?.emit('get servers');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +104,7 @@ class _NewGroupPageState extends State<NewGroupPage> {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return const NewGroup2Page();
+                          return const NamingNewGroup();
                         }));
                       },
                       child: Container(
@@ -115,7 +134,7 @@ class _NewGroupPageState extends State<NewGroupPage> {
 class Contact extends StatelessWidget {
   const Contact({Key? key, required this.contact}) : super(key: key);
 
-  final Map<String, dynamic> contact;
+  final ChatUsers contact;
 
   @override
   Widget build(BuildContext context) {
@@ -130,14 +149,14 @@ class Contact extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 3),
           child: ListTile(
             title: Text(
-              "${contact["name"]}",
+              contact.name,
               style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
             contentPadding: const EdgeInsets.all(4),
             leading: CircleAvatar(
               maxRadius: 32.0,
               child: Image.asset(
-                "${contact["img"]}",
+                contact.imageURL,
               ),
             ),
             trailing: Container(
