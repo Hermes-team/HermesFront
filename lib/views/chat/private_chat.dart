@@ -336,7 +336,6 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                                     height: 30,
                                     width: 30,
                                   ),
-                                  // // Icon(Icons.search),
                                 ],
                               ),
                               value: "Search",
@@ -366,7 +365,6 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                                     height: 30,
                                     width: 30,
                                   ),
-                                  // // Icon(Icons.search),
                                 ],
                               ),
                               value: "Search",
@@ -413,7 +411,6 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
@@ -493,7 +490,8 @@ class _GetMediaWidgetState extends State<GetMediaWidget> {
                   color: Colors.black,
                 ),
                 onPressed: null,
-              )),
+              )
+          ),
         ),
       ),
     );
