@@ -24,6 +24,7 @@ class _ListOfChatsState extends State<ListOfChats> {
         log("No servers found!");
         return;
       }
+      chatUsers.clear();
 
       for (var server in servers) {
         var parsedServer = ServerRes.fromJson(server);
