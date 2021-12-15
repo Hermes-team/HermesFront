@@ -1,11 +1,13 @@
 class MessageReq {
   String msg;
   String server;
+  bool linkFlag;
 
-  MessageReq({required this.msg, required this.server});
+  MessageReq({required this.msg, required this.server, required this.linkFlag});
 
   Map<String, dynamic> toJson() => {
     'message': msg,
-    'server': server
+    'server': server,
+    'linkFlag': linkFlag
   };
 }

@@ -6,6 +6,7 @@ class MessageRes {
   String? timezone;
   String? userID;
   String? uuid;
+  bool? linkFlag;
 
   MessageRes({
     this.message,
@@ -14,7 +15,8 @@ class MessageRes {
     this.time,
     this.timezone,
     this.userID,
-    this.uuid
+    this.uuid,
+    this.linkFlag
   });
 
   MessageRes.fromJson(Map<String, dynamic> json):
@@ -24,5 +26,6 @@ class MessageRes {
     time = json['time'],
     timezone = json['timezone'],
     userID = json['userID'],
+    linkFlag = json['linkFlag'],
     uuid = json['uuid'];
 }

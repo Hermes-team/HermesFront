@@ -31,16 +31,26 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
   late var msgListener;
   GiphyGif? _gif;
 
-
   addMsgFromServer(MessageRes messagePayload) {
     if (messagePayload.userID == userUniqid) {
-      var mess = _messages.firstWhere((element) => element.messageContent == messagePayload.message && element.uuid == "", orElse: () => ChatMessage(messageContent: "", messageType: "", uuid: "", isGiph: false, gif: null));
+      var mess = _messages.firstWhere((element) => element.messageContent == messagePayload.message && element.uuid == "", orElse: () => ChatMessage(messageContent: "", messageType: "", uuid: "", isGiph: false));
       if (mess.messageType == "") {
         return;
       }
       mess.uuid = messagePayload.uuid!;
     } else {
-      var chatMsg = ChatMessage(messageContent: messagePayload.message!, messageType: "receiver", uuid: messagePayload.uuid!, isGiph: false, gif: null);
+      ChatMessage chatMsg;
+      if (messagePayload.linkFlag!) {
+        chatMsg = ChatMessage(messageContent: messagePayload.message!,
+            messageType: "receiver",
+            uuid: messagePayload.uuid!,
+            isGiph: true);
+      } else {
+        chatMsg = ChatMessage(messageContent: messagePayload.message!,
+            messageType: "receiver",
+            uuid: messagePayload.uuid!,
+            isGiph: false);
+      }
       _messages.add(chatMsg);
     }
     if (mounted) {
@@ -51,7 +61,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
 
   loadOldMessage(MessageRes messagePayload) {
     var messageType = messagePayload.userID == userUniqid ? "sender" : "receiver";
-    var chatMsg = ChatMessage(messageContent: messagePayload.message!, messageType: messageType, uuid: messagePayload.uuid!, gif: null, isGiph: false);
+    var chatMsg = ChatMessage(messageContent: messagePayload.message!, messageType: messageType, uuid: messagePayload.uuid!, isGiph: false);
     _messages.add(chatMsg);
     if (mounted) {
       setState(() {});
@@ -61,8 +71,10 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
 
   sendMsg() {
     if (_gif != null) {
-      var chatMsg = ChatMessage(messageContent: "", messageType: "sender", uuid: "", gif: _gif, isGiph: true);
+      var chatMsg = ChatMessage(messageContent: "", messageType: "sender", uuid: "", isGiph: true);
       _messages.add(chatMsg);
+      var msgData = MessageReq(msg: _gif!.url!, server: widget.serversUniqid, linkFlag: true);
+      socket?.emit('message', msgData);
       _gif = null;
       if (mounted) {
         setState(() {});
@@ -72,9 +84,9 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
     }
 
     log("Servers uuid: " + widget.serversUniqid);
-    var msgData = MessageReq(msg: _msgController.text, server: widget.serversUniqid);
+    var msgData = MessageReq(msg: _msgController.text, server: widget.serversUniqid, linkFlag: false);
     if (msgData.msg == "") return;
-    var chatMsg = ChatMessage(messageContent: msgData.msg, messageType: "sender", uuid: "", gif: null, isGiph: false);
+    var chatMsg = ChatMessage(messageContent: msgData.msg, messageType: "sender", uuid: "", isGiph: false);
     _messages.add(chatMsg);
     socket?.emit('message', msgData);
     _msgController.clear();
@@ -287,7 +299,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                           color: (receiver ? const Color(0xFF182226) : msg.uuid == "" ? const Color(0x40294a2d) : const Color(0xFF5A7059)),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                        child: msg.isGiph ? GiphyImage.original(gif: msg.gif!) : Text(
+                        child: msg.isGiph ? GiphyImage(url: msg.messageContent) : Text(
                           msg.messageContent,
                           style: const TextStyle(fontSize: 15, color: Color(0xFFc9c9c9)),
                         ),

@@ -5,7 +5,6 @@ class ChatMessage {
   String messageType;
   String uuid;
   bool isGiph;
-  GiphyGif? gif;
 
-  ChatMessage({required this.messageContent, required this.messageType, required this.uuid, required this.isGiph, required this.gif});
+  ChatMessage({required this.messageContent, required this.messageType, required this.uuid, required this.isGiph});
 }
