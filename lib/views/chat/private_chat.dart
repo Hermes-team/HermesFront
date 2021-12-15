@@ -66,7 +66,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
 
   sendMsg() {
     if (_gif != null) {
-      var chatMsg = ChatMessage(messageContent: "", messageType: "sender", uuid: "", isGiph: true);
+      var chatMsg = ChatMessage(messageContent: _gif!.id, messageType: "sender", uuid: "", isGiph: true);
       _messages.add(chatMsg);
 
       var msgData = MessageReq(msg: _gif!.id, server: widget.serversUniqid, linkFlag: true);
