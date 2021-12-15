@@ -68,7 +68,8 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
     if (_gif != null) {
       var chatMsg = ChatMessage(messageContent: "", messageType: "sender", uuid: "", isGiph: true);
       _messages.add(chatMsg);
-      var msgData = MessageReq(msg: _gif!.url!, server: widget.serversUniqid, linkFlag: true);
+
+      var msgData = MessageReq(msg: _gif!.id, server: widget.serversUniqid, linkFlag: true);
       socket?.emit('message', msgData);
       _gif = null;
       if (mounted) {
@@ -124,6 +125,10 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
         );
       }
     });
+  }
+
+  getGif(String id) {
+    return "https://i.giphy.com/media/" + id + "/200.gif?api_key=hhEkPemfm4FqTY1a77blXL01f3D6xtPg";
   }
 
   bool isExpanded = false;
@@ -294,7 +299,10 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                           color: (receiver ? const Color(0xFF182226) : msg.uuid == "" ? const Color(0x40294a2d) : const Color(0xFF5A7059)),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                        child: msg.isGiph ? GiphyImage(url: msg.messageContent, placeholder: const Text("Loading giph..."),) : Text(
+                        child: msg.isGiph ?
+                        // GiphyImage(url: msg.messageContent, placeholder: const Text("Loading giph..."),)
+                        Image.network(getGif(msg.messageContent), headers: const {'accept': 'image/*'})
+                            : Text(
                           msg.messageContent,
                           style: const TextStyle(fontSize: 15, color: Color(0xFFc9c9c9)),
                         ),
