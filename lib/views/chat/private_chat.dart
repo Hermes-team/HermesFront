@@ -39,20 +39,15 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       }
       mess.uuid = messagePayload.uuid!;
     } else {
-      ChatMessage chatMsg;
-      if (messagePayload.linkFlag!) {
-        chatMsg = ChatMessage(messageContent: messagePayload.message!,
-            messageType: "receiver",
-            uuid: messagePayload.uuid!,
-            isGiph: true);
-      } else {
-        chatMsg = ChatMessage(messageContent: messagePayload.message!,
-            messageType: "receiver",
-            uuid: messagePayload.uuid!,
-            isGiph: false);
-      }
+      ChatMessage chatMsg = ChatMessage(
+          messageContent: messagePayload.message!,
+          messageType: "receiver",
+          uuid: messagePayload.uuid!,
+          isGiph: messagePayload.linkFlag!
+      );
       _messages.add(chatMsg);
     }
+
     if (mounted) {
       setState(() {});
       scrollDown();
@@ -61,7 +56,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
 
   loadOldMessage(MessageRes messagePayload) {
     var messageType = messagePayload.userID == userUniqid ? "sender" : "receiver";
-    var chatMsg = ChatMessage(messageContent: messagePayload.message!, messageType: messageType, uuid: messagePayload.uuid!, isGiph: false);
+    var chatMsg = ChatMessage(messageContent: messagePayload.message!, messageType: messageType, uuid: messagePayload.uuid!, isGiph: messagePayload.linkFlag!);
     _messages.add(chatMsg);
     if (mounted) {
       setState(() {});
@@ -299,7 +294,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
                           color: (receiver ? const Color(0xFF182226) : msg.uuid == "" ? const Color(0x40294a2d) : const Color(0xFF5A7059)),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                        child: msg.isGiph ? GiphyImage(url: msg.messageContent) : Text(
+                        child: msg.isGiph ? GiphyImage(url: msg.messageContent, placeholder: const Text("Loading giph..."),) : Text(
                           msg.messageContent,
                           style: const TextStyle(fontSize: 15, color: Color(0xFFc9c9c9)),
                         ),
