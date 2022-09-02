@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    const address = 'https://hermessengerr.herokuapp.com/';
+    const address = 'https://hermesback.glitch.me/';
     socket = io.io(address,
         OptionBuilder()
             .setTransports(['websocket'])

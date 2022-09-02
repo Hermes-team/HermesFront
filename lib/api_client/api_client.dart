@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiClient {
-  static const baseURL = 'https://hermessengerr.herokuapp.com';
+  static const baseURL = 'https://hermesback.glitch.me';
 
   static Future<http.Response> post<T>(String relURL, T jsonBody) async {
     return http.post(
